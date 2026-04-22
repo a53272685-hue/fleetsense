@@ -19,6 +19,17 @@ export { DotsMenu } from "./DotsMenu";
 export type { DotsMenuItem, DotsMenuProps } from "./DotsMenu";
 export { ZoneActivityList } from "./ZoneActivityList";
 export type { ZoneActivityRow } from "./ZoneActivityList";
+export { ProgressKpiCard } from "./ProgressKpiCard";
+export type { ProgressKpiCardProps } from "./ProgressKpiCard";
+export { VehicleInfoCard } from "./VehicleInfoCard";
+export type {
+  VehicleInfoCardProps,
+  VehicleInlineKpi,
+} from "./VehicleInfoCard";
+export { GroupSelector } from "./GroupSelector";
+export type { GroupSelectorGroup } from "./GroupSelector";
+export { GapKpiCard } from "./GapKpiCard";
+export type { GapKpiCardProps, GapCompareRow } from "./GapKpiCard";
 export type { StatusTone } from "./StatusPill";
 export type { NumberBadgeTone } from "./NumberBadge";
 export type { BadgeProps } from "./Badge";

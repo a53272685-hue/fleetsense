@@ -89,12 +89,53 @@
 - [x] **SubNav hover** — 부드러운 색 전환
 - [x] **Tab 라벨 Figma 스펙 교정** — "Vehicle Deep Dive", "Group Compare", "Insights" 추가
 
+### utilization/activity 페이지 (273:6512) — 완전 구현
+
+- [x] Page header + filters + 4 KPI cards (Engine Hours, Fleet Miles, Fleet Trips, Idle Time)
+- [x] **AreaLineChart** 신규 컴포넌트 (area fill + brand gradient + Daily Fleet Miles/Trips)
+- [x] **ActivityHeatmap** 신규 컴포넌트 (7×24 density grid, 5-level color ramp)
+- [x] **HeatmapLegend** 신규 컴포넌트 (Density Low/High strip)
+- [x] **ZoneActivityList** 신규 컴포넌트 (label + ProgressBar + %)
+- [x] Zone Activity Metrics 테이블 (Zone/Visits/Duration/Avg Stay)
+- [x] TableSectionHeader.searchPlaceholder 옵셔널화 (재사용성 개선)
+- [x] strip-kpi-bg 스크립트 정규식 보강 (`kpi-*` 플레인 패턴 포함, 11개 아이콘 정리)
+
+### utilization/vehicle-deep-dive/[id] 페이지 (273:7025) — 완전 구현
+
+- [x] **VehicleInfoCard** 신규 — breadcrumb subtitle + vehicle selector + 4 inline KPI
+- [x] **ProgressKpiCard** 신규 — big value + ProgressBar + "vs last week" trend
+- [x] **DualAreaLineChart** 신규 — 2-series overlapping area with gradient fills
+- [x] Page 구조: VehicleInfo → 2 ProgressKpi → Vehicle Performance Trends (column + mini metrics) → Time Breakdown donut + Performance Trends dual area → Activity breakdown (zone list + metrics 5-col with Avg Idle)
+- [x] `/utilization/vehicle-deep-dive` base route → `/1`로 redirect
+
+### utilization/group-comparison 페이지 (273:7566) — 완전 구현
+
+- [x] **Purple 팔레트 토큰** 추가 (purple-50~700, Untitled UI scale)
+- [x] **GroupSelector** 신규 — "Your group" vs "Other group" pair with color swatches
+- [x] **GapKpiCard** 신규 — gap value + dual compare bars (Central blue vs South purple)
+- [x] **GroupedColumnChart** 신규 — dual-series side-by-side bars per day
+- [x] **ActivityHeatmap palette prop** — brand | purple 색 가족 지원
+- [x] Page 구조: GroupSelector → 3 Gap KPI cards → Daily Utilization Status (grouped bars + mini metrics) → Groups Performance Trends (2 heatmaps side-by-side)
+
 ### 커밋 & 문서
 - [x] `f9a534b feat: utilization/overview page with interactions` (116 files, +5188 / −773)
+- [x] `8f61da6 feat: utilization/activity page with area charts and heatmap` (22 files, +843 / −255)
+- [ ] `feat: utilization/vehicle-deep-dive + group-comparison pages` (pending)
 
 ---
 
-## 🧭 다음 작업: utilization/activity 페이지 (273:6512)
+## 🧭 남은 작업
+
+### 후속 작업 목록
+
+- [ ] `utilization/insights` — Figma에 없음, placeholder page 추가 또는 route 제거 결정 필요
+- [ ] spawned task: `download-01` / `file-06` / `share-04` 아이콘 Figma 추출 → DotsMenu 메뉴에 아이콘 붙이기
+- [ ] Settings / Bell 아이콘 Figma 추출 → MainNav 우측에 알림/설정 버튼 추가
+- [ ] Time Breakdown donut을 FleetCompositionDonut과 다른 색 palette (brand blue dominated)로 분리 고려
+
+---
+
+## 📁 레거시: utilization/activity 계획 (참고용)
 
 ### Figma 분석 (캡처 확인 완료)
 

@@ -184,6 +184,17 @@
   --color-brand-800: var(--utility-brand-800);
   --color-brand-900: var(--utility-brand-900);
 
+  /* Purple — used for "Other group" (South Region) in Group Compare page.
+     Untitled UI purple scale, keeps brand palette separate. */
+  --color-purple-50: var(--utility-purple-50);
+  --color-purple-100: var(--utility-purple-100);
+  --color-purple-200: var(--utility-purple-200);
+  --color-purple-300: var(--utility-purple-300);
+  --color-purple-400: var(--utility-purple-400);
+  --color-purple-500: var(--utility-purple-500);
+  --color-purple-600: var(--utility-purple-600);
+  --color-purple-700: var(--utility-purple-700);
+
   /* ===== COLORS — UTILITY SEMANTIC ===== */
   --color-error-50: var(--utility-error-50);
   --color-error-100: var(--utility-error-100);
@@ -365,6 +376,16 @@
   --utility-brand-700: #175cd3;
   --utility-brand-800: #1849a9;
   --utility-brand-900: #194185;
+
+  /* UTILITY PURPLE — matches Untitled UI "Purple" palette used in Figma */
+  --utility-purple-50: #f4f3ff;
+  --utility-purple-100: #ebe9fe;
+  --utility-purple-200: #d9d6fe;
+  --utility-purple-300: #bdb4fe;
+  --utility-purple-400: #9b8afb;
+  --utility-purple-500: #7a5af8;
+  --utility-purple-600: #6938ef;
+  --utility-purple-700: #5925dc;
 
   /* UTILITY ERROR */
   --utility-error-50: #fef3f2;

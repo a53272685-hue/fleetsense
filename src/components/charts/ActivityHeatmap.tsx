@@ -27,25 +27,44 @@ export type HeatmapDensity = 0 | 1 | 2 | 3 | 4;
 /** Matrix: rows = days (Mon→Sun), columns = hours 00→23. */
 export type HeatmapMatrix = HeatmapDensity[][];
 
+/** Color family for the 5-level density ramp. */
+export type HeatmapPalette = "brand" | "purple";
+
 const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
 const HOUR_LABELS = Array.from({ length: 24 }, (_, i) =>
   String(i).padStart(2, "0"),
 );
 
-const DENSITY_BG: Record<HeatmapDensity, string> = {
-  0: "bg-[var(--utility-gray-100)]",
-  1: "bg-[var(--utility-brand-100)]",
-  2: "bg-[var(--utility-brand-300)]",
-  3: "bg-[var(--utility-brand-500)]",
-  4: "bg-[var(--utility-brand-700)]",
+const DENSITY_BG: Record<HeatmapPalette, Record<HeatmapDensity, string>> = {
+  brand: {
+    0: "bg-[var(--utility-gray-100)]",
+    1: "bg-[var(--utility-brand-100)]",
+    2: "bg-[var(--utility-brand-300)]",
+    3: "bg-[var(--utility-brand-500)]",
+    4: "bg-[var(--utility-brand-700)]",
+  },
+  purple: {
+    0: "bg-[var(--utility-gray-100)]",
+    1: "bg-[var(--utility-purple-100)]",
+    2: "bg-[var(--utility-purple-300)]",
+    3: "bg-[var(--utility-purple-500)]",
+    4: "bg-[var(--utility-purple-700)]",
+  },
 };
 
-export function ActivityHeatmap({ matrix }: { matrix: HeatmapMatrix }) {
+export function ActivityHeatmap({
+  matrix,
+  palette = "brand",
+}: {
+  matrix: HeatmapMatrix;
+  palette?: HeatmapPalette;
+}) {
   if (matrix.length !== 7) {
     console.warn(
       `ActivityHeatmap: expected 7 day rows, got ${matrix.length}.`,
     );
   }
+  const ramp = DENSITY_BG[palette];
   return (
     <div className="flex w-full items-start gap-md">
       {/* Y-axis labels (days) — 26px wide per Figma */}
@@ -93,7 +112,7 @@ export function ActivityHeatmap({ matrix }: { matrix: HeatmapMatrix }) {
                   aria-label={`${DAY_LABELS[rowIdx]} ${HOUR_LABELS[hourIdx]}:00 density ${density}`}
                   className={cn(
                     "h-[25px] rounded-xs",
-                    DENSITY_BG[density] ?? DENSITY_BG[0],
+                    ramp[density] ?? ramp[0],
                     "transition-transform duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
                     "hover:scale-105",
                   )}
@@ -111,8 +130,13 @@ export function ActivityHeatmap({ matrix }: { matrix: HeatmapMatrix }) {
  * HeatmapLegend — "Density Low [□□■■■] High" strip used above the heatmap.
  * Figma node 286:12148.
  */
-export function HeatmapLegend() {
+export function HeatmapLegend({
+  palette = "brand",
+}: {
+  palette?: HeatmapPalette;
+}) {
   const levels: HeatmapDensity[] = [0, 1, 2, 3, 4];
+  const ramp = DENSITY_BG[palette];
   return (
     <div className="flex items-center gap-md text-xs text-text-tertiary">
       <span className="font-medium">Density</span>
@@ -121,7 +145,7 @@ export function HeatmapLegend() {
         {levels.map((l) => (
           <div
             key={l}
-            className={cn("h-[16px] w-[16px] rounded-xs", DENSITY_BG[l])}
+            className={cn("h-[16px] w-[16px] rounded-xs", ramp[l])}
           />
         ))}
       </div>
