@@ -62,11 +62,15 @@ function PodiumColumn({
   height: number;
   variant: "gold" | "silver" | "bronze";
 }) {
+  // Pedestal backgrounds per Figma node 406:11422 (deep-dive/drivers podium).
+  // Earlier code used one step lighter on both silver (#fafafa) and bronze
+  // (error-50) which made the losers fade into the card bg, leaving gold
+  // to read as the only distinct tone. Matching Figma's utility-gray-200
+  // and utility-error-100 restores the 3-way color hierarchy.
   const pedestalColor = {
     gold: "bg-gradient-to-b from-[var(--utility-brand-500)] to-[var(--utility-brand-700)] text-white",
-    silver: "bg-bg-secondary text-text-primary",
-    bronze:
-      "bg-[var(--utility-error-50)] text-text-primary",
+    silver: "bg-[var(--utility-gray-200)] text-text-primary",
+    bronze: "bg-[var(--utility-error-100)] text-text-primary",
   }[variant];
 
   return (
