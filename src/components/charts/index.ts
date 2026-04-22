@@ -8,6 +8,7 @@ export { HorizontalBarChart } from "./HorizontalBarChart";
 export { ComplianceTrendChart } from "./ComplianceTrendChart";
 export { TimeBreakdownDonut } from "./TimeBreakdownDonut";
 export { DefectsStackedBar } from "./DefectsStackedBar";
+export { USHotspotMap } from "./USHotspotMap";
 export { ActivityHeatmap, HeatmapLegend } from "./ActivityHeatmap";
 export type { ColumnDatum } from "./UtilizationColumnChart";
 export type { CompositionDatum } from "./FleetCompositionDonut";
@@ -25,6 +26,7 @@ export type {
   TimeBreakdownDatum,
 } from "./TimeBreakdownDonut";
 export type { DefectsDatum } from "./DefectsStackedBar";
+export type { Hotspot } from "./USHotspotMap";
 export type {
   HeatmapMatrix,
   HeatmapDensity,

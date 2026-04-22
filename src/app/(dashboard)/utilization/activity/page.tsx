@@ -79,18 +79,16 @@ type ZoneMetricRow = {
   visits: string;
   duration: string;
   avgStay: string;
-  /** Red-highlighted avgStay (e.g. over-long stays). */
-  avgStayTone?: "default" | "error";
+  /** Red-tinted delta (wait / over-target). Matches Figma mock's
+      5th column (red subvalue per row). */
+  avgWait?: string;
 };
 
-// Avg Stay values match Figma main (gray) column.
-// The red subvalues (1.2h/2.4h/1.9h) in the Figma mock appear to belong to
-// a separate delta/wait column not yet implemented — revisit if added.
 const zoneMetrics: ZoneMetricRow[] = [
   { zone: "Customer Sites", visits: "186 / 248", duration: "312 / 680h", avgStay: "4.2h" },
-  { zone: "Distribution Centers", visits: "142 / 195", duration: "198 / 480h", avgStay: "3.8h" },
-  { zone: "Maintenance Facilities", visits: "98 / 156", duration: "145 / 320h", avgStay: "6.1h" },
-  { zone: "Job Sites", visits: "78 / 112", duration: "165 / 290h", avgStay: "5.3h" },
+  { zone: "Distribution Centers", visits: "142 / 195", duration: "198 / 480h", avgStay: "3.8h", avgWait: "1.2h" },
+  { zone: "Maintenance Facilities", visits: "98 / 156", duration: "145 / 320h", avgStay: "6.1h", avgWait: "2.4h" },
+  { zone: "Job Sites", visits: "78 / 112", duration: "165 / 290h", avgStay: "5.3h", avgWait: "1.9h" },
 ];
 
 // 7 rows × 24 cols heatmap (Mon→Sun, 00→23).
@@ -255,10 +253,11 @@ export default function UtilizationActivityPage() {
             <table className="w-full table-fixed border-collapse">
               <thead>
                 <tr>
-                  <TableHeader className="w-[40%]">Zone</TableHeader>
+                  <TableHeader className="w-[32%]">Zone</TableHeader>
                   <TableHeader>Visits</TableHeader>
                   <TableHeader>Duration</TableHeader>
                   <TableHeader>Avg Stay</TableHeader>
+                  <TableHeader>Avg Wait</TableHeader>
                 </tr>
               </thead>
               <tbody>
@@ -273,14 +272,17 @@ export default function UtilizationActivityPage() {
                     <TableCell className="text-text-tertiary">
                       {m.duration}
                     </TableCell>
+                    <TableCell className="text-text-tertiary">
+                      {m.avgStay}
+                    </TableCell>
                     <TableCell
                       className={
-                        m.avgStayTone === "error"
+                        m.avgWait
                           ? "font-semibold text-text-error-primary"
                           : "text-text-tertiary"
                       }
                     >
-                      {m.avgStay}
+                      {m.avgWait ?? "—"}
                     </TableCell>
                   </TableRow>
                 ))}

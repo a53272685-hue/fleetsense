@@ -64,6 +64,19 @@ const attentionRows: AttentionRow[] = [
   { id: "3", initials: "CR", name: "Carlos Rivera", model: "Chevrolet Express", score: 48, improvement: "-12%", safetyScore: "45%", vehicle: "Fleet-289" },
 ];
 
+/**
+ * Map a "92%" / "58%" safety score string to an appropriate StatusPill
+ * tone. Higher is better — so ≥80% reads as success (risk-low green),
+ * 70–79% as warning, <70% as danger.
+ */
+function safetyTone(score: string): "risk-low" | "risk-medium" | "risk-high" {
+  const n = parseFloat(score);
+  if (Number.isNaN(n)) return "risk-medium";
+  if (n >= 80) return "risk-low";
+  if (n >= 70) return "risk-medium";
+  return "risk-high";
+}
+
 export default function DeepDiveDriversPage() {
   const enter = "fs-animate-enter";
   const [currentPage, setCurrentPage] = useState(1);
@@ -204,7 +217,9 @@ export default function DeepDiveDriversPage() {
                   </span>
                 </TableCell>
                 <TableCell className="!px-lg">
-                  <StatusPill tone="risk-high">{r.safetyScore}</StatusPill>
+                  <StatusPill tone={safetyTone(r.safetyScore)}>
+                    {r.safetyScore}
+                  </StatusPill>
                 </TableCell>
                 <TableCell className="text-text-tertiary">
                   {r.currentVehicle}
@@ -298,7 +313,9 @@ export default function DeepDiveDriversPage() {
                   </span>
                 </TableCell>
                 <TableCell className="!px-lg">
-                  <StatusPill tone="risk-high">{r.safetyScore}</StatusPill>
+                  <StatusPill tone={safetyTone(r.safetyScore)}>
+                    {r.safetyScore}
+                  </StatusPill>
                 </TableCell>
                 <TableCell className="text-text-tertiary">{r.vehicle}</TableCell>
                 <TableCell className="!px-sm">

@@ -21,7 +21,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ROW_A } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
-import { SearchLgIcon } from "@/components/icons";
+import { SearchLgIcon, Settings01Icon, Bell01Icon } from "@/components/icons";
 
 function isSectionActive(href: string, pathname: string) {
   // Match first path segment — "/utilization/overview" matches "/utilization/overview"
@@ -83,24 +83,28 @@ export function MainNav() {
           })}
         </ul>
 
-        {/* Right-side tools.
-            Settings / Bell icons are not yet exported from Figma — they
-            would be added once `settings-01` and `bell-01` icons land in
-            /src/components/icons/. */}
-        <div className="flex shrink-0 items-center gap-lg">
-          <button
-            type="button"
-            aria-label="Search"
-            className={cn(
-              "inline-flex h-9 w-9 items-center justify-center rounded-sm",
-              "text-fg-quaternary",
-              "transition-colors duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
-              "hover:bg-bg-primary-hover hover:text-fg-quaternary-hover",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg-brand-primary",
-            )}
-          >
-            <SearchLgIcon className="h-5 w-5" />
-          </button>
+        {/* Right-side tools — search, settings, notifications, Leave button. */}
+        <div className="flex shrink-0 items-center gap-sm">
+          {[
+            { Icon: SearchLgIcon, label: "Search" },
+            { Icon: Settings01Icon, label: "Settings" },
+            { Icon: Bell01Icon, label: "Notifications" },
+          ].map(({ Icon, label }) => (
+            <button
+              key={label}
+              type="button"
+              aria-label={label}
+              className={cn(
+                "inline-flex h-9 w-9 items-center justify-center rounded-sm",
+                "text-fg-quaternary",
+                "transition-colors duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
+                "hover:bg-bg-primary-hover hover:text-fg-quaternary-hover",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg-brand-primary",
+              )}
+            >
+              <Icon className="h-5 w-5" />
+            </button>
+          ))}
           <button
             type="button"
             className={cn(

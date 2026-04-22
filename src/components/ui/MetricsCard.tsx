@@ -10,6 +10,11 @@
  *    - 2 rows: label (sm medium text-tertiary) / value (sm semibold text-secondary)
  */
 import type { ComponentType, SVGProps } from "react";
+import {
+  Download01Icon,
+  File06Icon,
+  Share04Icon,
+} from "@/components/icons";
 import { KpiIconBadge } from "./KpiIconBadge";
 import { Badge } from "./Badge";
 import { DotsMenu } from "./DotsMenu";
@@ -44,9 +49,18 @@ export function MetricsCard({ icon, iconTone = "brand", title, value, trend, met
         <DotsMenu
           ariaLabel={`${title} options`}
           items={[
-            { label: "Download as CSV/Excel" },
-            { label: "Export as PDF" },
-            { label: "Share via Link" },
+            {
+              label: "Download as CSV/Excel",
+              icon: <Download01Icon className="h-4 w-4" />,
+            },
+            {
+              label: "Export as PDF",
+              icon: <File06Icon className="h-4 w-4" />,
+            },
+            {
+              label: "Share via Link",
+              icon: <Share04Icon className="h-4 w-4" />,
+            },
           ]}
         />
       </header>

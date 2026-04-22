@@ -19,6 +19,7 @@ import {
   CalendarIcon,
   FilterLinesIcon,
   SearchLgIcon,
+  PlayIcon,
 } from "@/components/icons";
 
 type LytxRow = {
@@ -188,7 +189,8 @@ export default function DeepDiveLytxPage() {
                       type="button"
                       className="inline-flex items-center gap-xs rounded-md border border-border-secondary bg-bg-primary px-md py-xs text-xs font-semibold text-text-secondary shadow-xs hover:bg-bg-primary-hover"
                     >
-                      ▶ Play
+                      <PlayIcon className="h-3 w-3" />
+                      Play
                     </button>
                   </TableCell>
                 </TableRow>

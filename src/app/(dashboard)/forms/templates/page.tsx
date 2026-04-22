@@ -25,6 +25,8 @@ import {
   CalendarIcon,
   FilterLinesIcon,
   SearchLgIcon,
+  Trash01Icon,
+  Edit02Icon,
 } from "@/components/icons";
 
 // ---------- Mock data ----------
@@ -215,6 +217,20 @@ export default function FormTemplatesPage() {
                         className="rounded-md border border-border-secondary bg-bg-primary px-md py-xs text-xs font-semibold text-text-secondary shadow-xs transition-colors duration-[var(--duration-fast)] hover:bg-bg-primary-hover"
                       >
                         Request
+                      </button>
+                      <button
+                        type="button"
+                        aria-label={`Delete ${r.formName}`}
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-sm text-fg-quaternary transition-colors duration-[var(--duration-fast)] hover:bg-bg-primary-hover hover:text-fg-quaternary-hover"
+                      >
+                        <Trash01Icon className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        aria-label={`Edit ${r.formName}`}
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-sm text-fg-quaternary transition-colors duration-[var(--duration-fast)] hover:bg-bg-primary-hover hover:text-fg-quaternary-hover"
+                      >
+                        <Edit02Icon className="h-4 w-4" />
                       </button>
                     </div>
                   </TableCell>

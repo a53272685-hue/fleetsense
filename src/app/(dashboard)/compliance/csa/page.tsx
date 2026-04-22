@@ -15,8 +15,10 @@ import {
 import {
   GroupedColumnChart,
   HorizontalBarChart,
+  USHotspotMap,
   type GroupedColumnDatum,
   type HorizontalBarDatum,
+  type Hotspot,
 } from "@/components/charts";
 import {
   TableHeader,
@@ -51,6 +53,16 @@ const hotspotReports = [
   { date: "Jan 3, 2026", reportId: "FL33091047" },
   { date: "Jan 4, 2026", reportId: "TX953206714" },
   { date: "Jan 5, 2026", reportId: "NY41832356" },
+];
+
+// Hotspot coordinates are approximate — x/y are percentages of the SVG
+// viewBox and were eyeballed to roughly match US state positions in
+// USHotspotMap's simplified outline.
+const hotspots: Hotspot[] = [
+  { id: "mia", label: "Miami, FL", x: 78, y: 82, badge: "15 violation", tone: "risk-high" },
+  { id: "den", label: "Denver, CO", x: 44, y: 48, badge: "8 violation", tone: "risk-medium" },
+  { id: "atl", label: "Atlanta, GA", x: 72, y: 62, badge: "4 violation", tone: "risk-low" },
+  { id: "lax", label: "Los Angeles, CA", x: 18, y: 54, badge: "11 violation", tone: "risk-medium" },
 ];
 
 // Side-by-side 2-series bar chart data (Inspection Results / Violation Analysis)
@@ -178,22 +190,9 @@ export default function ComplianceCSAPage() {
             onChange={setHotspotTab}
           />
           <div className="grid grid-cols-[1fr_320px] gap-lg">
-            {/* Map placeholder */}
-            <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-xl border border-border-secondary bg-bg-secondary">
-              <div className="absolute left-4xl top-3xl inline-flex items-center gap-md rounded-md bg-bg-primary px-md py-sm shadow-md">
-                <span
-                  aria-hidden
-                  className="h-2 w-2 rounded-full bg-[var(--utility-error-500)]"
-                />
-                <span className="text-sm font-medium text-text-primary">
-                  Miami, FL
-                </span>
-                <StatusPill tone="risk-high">15 violation</StatusPill>
-              </div>
-              <p className="text-sm text-text-quaternary">
-                [ US Map — hotspot markers rendered here ]
-              </p>
-            </div>
+            {/* US Map with hotspot markers — click a marker to surface its
+                label pill at the top-left corner. */}
+            <USHotspotMap hotspots={hotspots} initialSelected="mia" />
 
             {/* Reports panel */}
             <CardPanel title="Inspection Reports">
