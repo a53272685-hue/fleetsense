@@ -56,7 +56,7 @@ export function ProgressKpiCard({
         {value}
       </p>
 
-      <ProgressBar value={progressPct} />
+      <ProgressBar value={progressPct} label={`${title} progress`} />
 
       {trend ? (
         <div className="flex items-center gap-sm text-sm">

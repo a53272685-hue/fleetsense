@@ -207,7 +207,11 @@ export default function DeepDiveDriversPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-md">
-                    <ProgressBar value={r.score} size="lg" />
+                    <ProgressBar
+                      value={r.score}
+                      size="lg"
+                      label={`${r.name} safety score`}
+                    />
                     <span className="text-sm font-medium text-text-secondary">
                       {r.score}%
                     </span>

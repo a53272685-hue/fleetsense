@@ -74,7 +74,7 @@ export function ComplianceStatusCard({
             >
               <span className="text-text-tertiary">{r.label}</span>
               {typeof r.barPct === "number" ? (
-                <ProgressBar value={r.barPct} />
+                <ProgressBar value={r.barPct} label={r.label} />
               ) : (
                 <span />
               )}

@@ -30,7 +30,7 @@ export function ZoneActivityList({ rows }: { rows: ZoneActivityRow[] }) {
               {r.pct}%
             </span>
           </div>
-          <ProgressBar value={r.pct} />
+          <ProgressBar value={r.pct} label={`${r.label} activity`} />
         </li>
       ))}
     </ul>

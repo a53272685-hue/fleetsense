@@ -97,7 +97,10 @@ export function FleetVehiclesTable({ rows }: { rows: FleetVehicleRow[] }) {
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-lg">
-                  <ProgressBar value={r.utilizationPct} />
+                  <ProgressBar
+                    value={r.utilizationPct}
+                    label={`${r.name} utilization`}
+                  />
                   <span className="text-sm font-medium text-text-secondary whitespace-nowrap">
                     {r.utilizationPct}%
                   </span>

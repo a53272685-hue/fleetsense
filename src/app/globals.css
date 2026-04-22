@@ -268,7 +268,10 @@
   --text-tertiary: #4a5578;
   --text-tertiary-hover: #404968;
   --text-tertiary-on-brand: #b2ddff;
-  --text-quaternary: #717680;
+  /* WCAG 2.1 AA: #717680 was 4.36:1 on bg-secondary (#fafafa) and 4.03:1
+     on utility-gray-100 (#eff1f5), below the 4.5:1 minimum. #61677A is
+     visually adjacent but lifts both ratios to 5.39 / 4.98. */
+  --text-quaternary: #61677a;
   --text-quaternary-on-brand: #84caff;
   --text-white: #ffffff;
   --text-disabled: #5d6b98;
@@ -282,7 +285,10 @@
   --text-error-primary: #d92d20;
   --text-error-primary-hover: #b42318;
   --text-warning-primary: #dc6803;
-  --text-success-primary: #079455;
+  /* WCAG 2.1 AA: #079455 was 3.91:1 on white, failing 4.5:1 for small
+     text. #067647 (= utility-success-700) ratios 5.69:1 on white and
+     keeps the visible "success green" character. */
+  --text-success-primary: #067647;
 
   /* BORDER */
   --border-primary: #b9c0d4;

@@ -34,6 +34,7 @@ export function Pagination({
           <select
             value={rowsPerPage}
             onChange={(e) => onRowsPerPageChange(Number(e.target.value))}
+            aria-label="Rows per page"
             className="bg-transparent text-sm font-medium text-text-secondary focus:outline-none"
           >
             {[10, 25, 50, 100].map((n) => (

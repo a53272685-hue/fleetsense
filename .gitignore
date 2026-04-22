@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# a11y audit reports (local only)
+.a11y-reports/
+.a11y-reports-before/

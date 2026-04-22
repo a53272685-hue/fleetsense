@@ -80,7 +80,10 @@ export function DriversPerformanceTable({ rows }: { rows: DriverRow[] }) {
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-lg">
-                  <ProgressBar value={r.scorePct} />
+                  <ProgressBar
+                    value={r.scorePct}
+                    label={`${r.name} performance score`}
+                  />
                   <span className="text-sm font-medium text-text-secondary whitespace-nowrap">
                     {r.scorePct}%
                   </span>
