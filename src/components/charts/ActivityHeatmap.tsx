@@ -35,6 +35,15 @@ const HOUR_LABELS = Array.from({ length: 24 }, (_, i) =>
   String(i).padStart(2, "0"),
 );
 
+/** Human-readable density label for the hover tooltip. */
+const DENSITY_LABEL: Record<HeatmapDensity, string> = {
+  0: "Idle",
+  1: "Low",
+  2: "Medium",
+  3: "High",
+  4: "Very High",
+};
+
 const DENSITY_BG: Record<HeatmapPalette, Record<HeatmapDensity, string>> = {
   brand: {
     0: "bg-[var(--utility-gray-100)]",
@@ -106,18 +115,70 @@ export function ActivityHeatmap({
               }}
               aria-label={`${DAY_LABELS[rowIdx]} activity`}
             >
-              {row.map((density, hourIdx) => (
-                <div
-                  key={hourIdx}
-                  aria-label={`${DAY_LABELS[rowIdx]} ${HOUR_LABELS[hourIdx]}:00 density ${density}`}
-                  className={cn(
-                    "h-[25px] rounded-xs",
-                    ramp[density] ?? ramp[0],
-                    "transition-transform duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
-                    "hover:scale-105",
-                  )}
-                />
-              ))}
+              {row.map((density, hourIdx) => {
+                // Tooltip above by default; flip below for the first two rows
+                // (Mon/Tue) so it doesn't clip against the card's top edge.
+                const tooltipBelow = rowIdx < 2;
+                // Nudge tooltip horizontally at the grid edges so it stays
+                // inside the card (first 3 hour cols → left-anchored,
+                // last 3 → right-anchored, else center).
+                const anchor =
+                  hourIdx < 3
+                    ? "left-0 translate-x-0"
+                    : hourIdx > 20
+                      ? "right-0 left-auto translate-x-0"
+                      : "left-1/2 -translate-x-1/2";
+                return (
+                  <div
+                    key={hourIdx}
+                    aria-label={`${DAY_LABELS[rowIdx]} ${HOUR_LABELS[hourIdx]}:00 density ${density}`}
+                    className={cn(
+                      "group relative h-[25px] rounded-xs",
+                      ramp[density] ?? ramp[0],
+                      "transition-transform duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
+                      "hover:z-20 hover:scale-110 hover:ring-2 hover:ring-fg-brand-primary/40",
+                    )}
+                  >
+                    {/* Tooltip — Figma node 300:15302.
+                        Hidden by default, fades in on hover via group-hover. */}
+                    <div
+                      role="tooltip"
+                      className={cn(
+                        "pointer-events-none absolute z-30 whitespace-nowrap",
+                        tooltipBelow ? "top-full mt-[6px]" : "bottom-full mb-[6px]",
+                        anchor,
+                        "rounded-xs bg-black/80 px-[8px] py-[6px] shadow-xs",
+                        "opacity-0 group-hover:opacity-100",
+                        "transition-opacity duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
+                      )}
+                    >
+                      <div className="flex flex-col gap-[2px] text-xs leading-[18px] text-white">
+                        <div className="flex items-center gap-lg">
+                          <span className="font-medium">
+                            {DAY_LABELS[rowIdx]} {HOUR_LABELS[hourIdx]}:00
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between gap-lg">
+                          <span className="text-white/80">Density</span>
+                          <span className="font-medium">
+                            {DENSITY_LABEL[density] ?? DENSITY_LABEL[0]}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Arrow — rotated 5px square that tucks under
+                          the tooltip body (above cell) or over it (below). */}
+                      <div
+                        className={cn(
+                          "absolute h-[6px] w-[6px] rotate-45 bg-black/80",
+                          tooltipBelow
+                            ? "-top-[2px] left-1/2 -translate-x-1/2"
+                            : "-bottom-[2px] left-1/2 -translate-x-1/2",
+                        )}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
