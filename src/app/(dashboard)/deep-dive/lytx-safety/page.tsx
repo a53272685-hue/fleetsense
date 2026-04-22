@@ -167,11 +167,13 @@ export default function DeepDiveLytxPage() {
               {rows.map((r) => (
                 <TableRow
                   key={r.id}
-                  interactive
+                  hoverable
                   onClick={() => {
-                    /* stub — open event playback */
+                    /* stub — row click opens event playback; the
+                       per-row DotsMenu owns the real semantic action.
+                       hoverable (not interactive) avoids a
+                       nested-interactive WCAG 4.1.2 violation. */
                   }}
-                  aria-label={`Open event ${r.trigger.label} by ${r.driver}`}
                 >
                   <TableCell className="text-text-tertiary">{r.date}</TableCell>
                   <TableCell>

@@ -175,11 +175,13 @@ export default function DeepDiveDriversPage() {
             {leaderRows.map((r) => (
               <TableRow
                 key={r.id}
-                interactive
+                hoverable
                 onClick={() => {
-                  /* stub — open driver profile */
+                  /* stub — row click opens driver profile; semantic
+                     action lives on the "View Profile" button inside.
+                     Using hoverable (not interactive) avoids a
+                     nested-interactive WCAG 4.1.2 violation. */
                 }}
-                aria-label={`Open driver ${r.name}`}
               >
                 <TableCell className="!px-lg">
                   <div className="flex items-center gap-sm">
@@ -292,11 +294,13 @@ export default function DeepDiveDriversPage() {
             {attentionRows.map((r) => (
               <TableRow
                 key={r.id}
-                interactive
+                hoverable
                 onClick={() => {
-                  /* stub — open driver profile */
+                  /* stub — row click opens driver profile; semantic
+                     action lives on the "View Profile" button inside.
+                     Using hoverable (not interactive) avoids a
+                     nested-interactive WCAG 4.1.2 violation. */
                 }}
-                aria-label={`Open driver ${r.name}`}
               >
                 <TableCell>
                   <div className="flex items-center gap-md">

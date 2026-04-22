@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import {
   PageHeader,
   FilterChip,
@@ -184,11 +183,14 @@ export default function FormTemplatesPage() {
               {templateRows.map((r) => (
                 <TableRow
                   key={r.id}
-                  interactive
+                  hoverable
                   onClick={() => {
-                    /* stub — open template detail */
+                    /* stub — row click opens template detail; the
+                       per-row Request / Trash / Edit buttons own the
+                       real semantic actions. hoverable (not
+                       interactive) avoids nested-interactive WCAG
+                       4.1.2 violations. */
                   }}
-                  aria-label={`Open template ${r.formName}`}
                 >
                   <TableCell>
                     <div className="flex items-center gap-md">
@@ -211,12 +213,21 @@ export default function FormTemplatesPage() {
                   <TableCell className="text-text-tertiary">{r.submissions}</TableCell>
                   <TableCell className="text-text-tertiary">{r.pendingRequests}</TableCell>
                   <TableCell>
-                    <Link
-                      href="#"
-                      className="text-sm font-semibold text-fg-brand-primary underline"
+                    {/* Placeholder target: use <button> not <Link href="#">
+                        (WCAG 2.4.4). min-h/min-w 24px meets WCAG 2.5.8
+                        target-size (2.2 AA). e.stopPropagation keeps the
+                        row-level click handler from also firing. */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        /* stub — open linked rules */
+                      }}
+                      aria-label={`Open linked rules for ${r.formName}`}
+                      className="inline-flex min-h-[24px] min-w-[24px] items-center justify-center rounded-sm px-xs text-sm font-semibold text-fg-brand-primary underline transition-colors duration-[var(--duration-fast)] hover:text-fg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg-brand-primary/40"
                     >
                       {r.linkedRules}
-                    </Link>
+                    </button>
                   </TableCell>
                   <TableCell className="!px-sm">
                     <div className="flex items-center gap-xs">
