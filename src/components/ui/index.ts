@@ -34,6 +34,13 @@ export { DriverInfoCard } from "./DriverInfoCard";
 export type { DriverInfoCardProps } from "./DriverInfoCard";
 export { EfficiencyLossList } from "./EfficiencyLossList";
 export type { EfficiencyLossItem } from "./EfficiencyLossList";
+export { ComplianceStatusCard } from "./ComplianceStatusCard";
+export type {
+  ComplianceStatusCardProps,
+  ComplianceStatusRow,
+} from "./ComplianceStatusCard";
+export { PriorityActionsPanel } from "./PriorityActionsPanel";
+export type { PriorityAction } from "./PriorityActionsPanel";
 export type { StatusTone } from "./StatusPill";
 export type { NumberBadgeTone } from "./NumberBadge";
 export type { BadgeProps } from "./Badge";

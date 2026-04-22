@@ -4,6 +4,7 @@ export { DailyUtilizationStackedBar } from "./DailyUtilizationStackedBar";
 export { AreaLineChart } from "./AreaLineChart";
 export { DualAreaLineChart } from "./DualAreaLineChart";
 export { GroupedColumnChart } from "./GroupedColumnChart";
+export { HorizontalBarChart } from "./HorizontalBarChart";
 export { ActivityHeatmap, HeatmapLegend } from "./ActivityHeatmap";
 export type { ColumnDatum } from "./UtilizationColumnChart";
 export type { CompositionDatum } from "./FleetCompositionDonut";
@@ -14,6 +15,7 @@ export type {
   GroupedColumnDatum,
   GroupedSeries,
 } from "./GroupedColumnChart";
+export type { HorizontalBarDatum } from "./HorizontalBarChart";
 export type {
   HeatmapMatrix,
   HeatmapDensity,

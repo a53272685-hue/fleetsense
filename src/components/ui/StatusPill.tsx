@@ -11,7 +11,25 @@
  */
 import { cn } from "@/lib/utils";
 
-export type StatusTone = "optimal" | "moderate" | "low" | "over" | "under";
+export type StatusTone =
+  | "optimal"
+  | "moderate"
+  | "low"
+  | "over"
+  | "under"
+  // Compliance-specific tones for risk levels, violation types, and severity
+  | "risk-high"
+  | "risk-medium"
+  | "risk-low"
+  | "level-1"
+  | "level-2"
+  | "level-3"
+  | "crash"
+  | "hos"
+  | "vehicle"
+  | "driver"
+  | "hazmat"
+  | "brand";
 
 const TONE: Record<StatusTone, string> = {
   optimal: "bg-success-50 border-success-200 text-success-700",
@@ -19,6 +37,24 @@ const TONE: Record<StatusTone, string> = {
   low: "bg-warning-50 border-warning-200 text-warning-700",
   over: "bg-warning-50 border-warning-200 text-warning-700",
   under: "bg-error-50 border-error-200 text-error-700",
+
+  // Risk levels
+  "risk-high": "bg-error-50 border-error-200 text-error-700",
+  "risk-medium": "bg-warning-50 border-warning-200 text-warning-700",
+  "risk-low": "bg-success-50 border-success-200 text-success-700",
+
+  // CSA inspection levels
+  "level-1": "bg-gray-100 border-gray-200 text-gray-700",
+  "level-2": "bg-warning-50 border-warning-200 text-warning-700",
+  "level-3": "bg-error-50 border-error-200 text-error-700",
+
+  // CSA violation categories
+  crash: "bg-error-50 border-error-200 text-error-700",
+  hos: "bg-warning-50 border-warning-200 text-warning-700",
+  vehicle: "bg-[var(--utility-brand-50)] border-[var(--utility-brand-200)] text-[var(--utility-brand-700)]",
+  driver: "bg-[var(--utility-purple-50)] border-[var(--utility-purple-200)] text-[var(--utility-purple-700)]",
+  hazmat: "bg-[var(--utility-purple-50)] border-[var(--utility-purple-200)] text-[var(--utility-purple-700)]",
+  brand: "bg-[var(--utility-brand-50)] border-[var(--utility-brand-200)] text-[var(--utility-brand-700)]",
 };
 
 export function StatusPill({

@@ -1,7 +1,6 @@
-export default function CompliancePage() {
-  return (
-    <div>
-      <h1 className="text-xl font-semibold text-text-primary">Compliance</h1>
-    </div>
-  );
+import { redirect } from "next/navigation";
+
+/** `/compliance` → default to the overview sub-page. */
+export default function ComplianceIndexPage() {
+  redirect("/compliance/overview");
 }
