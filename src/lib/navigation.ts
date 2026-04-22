@@ -17,8 +17,8 @@ export const ROW_A: NavItem[] = [
   { label: "Utilization", href: "/utilization/overview", icon: NavUtilizationIcon },
   { label: "Efficiency", href: "/efficiency/overview", icon: NavEfficiencyIcon },
   { label: "Compliance", href: "/compliance/overview", icon: NavComplianceIcon },
-  { label: "Forms", href: "/forms", icon: NavFormsIcon },
-  { label: "Deep Dive", href: "/deep-dive", icon: NavDeepDiveIcon },
+  { label: "Forms", href: "/forms/submissions", icon: NavFormsIcon },
+  { label: "Deep Dive", href: "/deep-dive/drivers", icon: NavDeepDiveIcon },
 ];
 
 export const ROW_B = {
@@ -40,6 +40,15 @@ export const ROW_B = {
     { label: "Maintenance", href: "/compliance/maintenance" },
     { label: "House of Service", href: "/compliance/hos" },
   ] satisfies NavItem[],
+  forms: [
+    { label: "Submissions", href: "/forms/submissions" },
+    { label: "Templates", href: "/forms/templates" },
+    { label: "Requests", href: "/forms/requests" },
+  ] satisfies NavItem[],
+  "deep-dive": [
+    { label: "Drivers", href: "/deep-dive/drivers" },
+    { label: "Lytx Safety", href: "/deep-dive/lytx-safety" },
+  ] satisfies NavItem[],
 } as const;
 
 /** Map a URL path to its sub-nav section key. */
@@ -47,5 +56,7 @@ export function getSubNavKey(pathname: string): keyof typeof ROW_B | null {
   if (pathname.startsWith("/utilization")) return "utilization";
   if (pathname.startsWith("/efficiency")) return "efficiency";
   if (pathname.startsWith("/compliance")) return "compliance";
+  if (pathname.startsWith("/forms")) return "forms";
+  if (pathname.startsWith("/deep-dive")) return "deep-dive";
   return null;
 }

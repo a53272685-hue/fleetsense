@@ -29,7 +29,26 @@ export type StatusTone =
   | "vehicle"
   | "driver"
   | "hazmat"
-  | "brand";
+  | "brand"
+  // Form submission status/type pills
+  | "pending"
+  | "in-review"
+  | "approved"
+  | "flagged"
+  | "resolved"
+  | "new"
+  | "coaching"
+  | "fuel"
+  | "inspection"
+  | "trip"
+  | "safety"
+  | "maintenance"
+  | "manual"
+  | "mobile"
+  | "auto"
+  // Due-date urgency / time-to-due
+  | "due-urgent"
+  | "due-soon";
 
 const TONE: Record<StatusTone, string> = {
   optimal: "bg-success-50 border-success-200 text-success-700",
@@ -55,6 +74,31 @@ const TONE: Record<StatusTone, string> = {
   driver: "bg-[var(--utility-purple-50)] border-[var(--utility-purple-200)] text-[var(--utility-purple-700)]",
   hazmat: "bg-[var(--utility-purple-50)] border-[var(--utility-purple-200)] text-[var(--utility-purple-700)]",
   brand: "bg-[var(--utility-brand-50)] border-[var(--utility-brand-200)] text-[var(--utility-brand-700)]",
+
+  // Form submission status
+  pending: "bg-warning-50 border-warning-200 text-warning-700",
+  "in-review": "bg-[var(--utility-brand-50)] border-[var(--utility-brand-200)] text-[var(--utility-brand-700)]",
+  approved: "bg-success-50 border-success-200 text-success-700",
+  flagged: "bg-error-50 border-error-200 text-error-700",
+  resolved: "bg-gray-100 border-gray-200 text-gray-700",
+  new: "bg-[var(--utility-brand-50)] border-[var(--utility-brand-200)] text-[var(--utility-brand-700)]",
+  coaching: "bg-[var(--utility-purple-50)] border-[var(--utility-purple-200)] text-[var(--utility-purple-700)]",
+
+  // Form type pills
+  fuel: "bg-error-50 border-error-200 text-error-700",
+  inspection: "bg-[var(--utility-brand-50)] border-[var(--utility-brand-200)] text-[var(--utility-brand-700)]",
+  trip: "bg-gray-100 border-gray-200 text-gray-700",
+  safety: "bg-error-50 border-error-200 text-error-700",
+  maintenance: "bg-warning-50 border-warning-200 text-warning-700",
+
+  // Source pills
+  manual: "bg-gray-100 border-gray-200 text-gray-700",
+  mobile: "bg-gray-100 border-gray-200 text-gray-700",
+  auto: "bg-gray-100 border-gray-200 text-gray-700",
+
+  // Urgency
+  "due-urgent": "bg-error-50 border-error-200 text-error-700",
+  "due-soon": "bg-warning-50 border-warning-200 text-warning-700",
 };
 
 export function StatusPill({

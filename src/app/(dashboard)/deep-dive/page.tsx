@@ -1,7 +1,6 @@
-export default function DeepDivePage() {
-  return (
-    <div>
-      <h1 className="text-xl font-semibold text-text-primary">Deep Dive</h1>
-    </div>
-  );
+import { redirect } from "next/navigation";
+
+/** `/deep-dive` → default to the drivers sub-page. */
+export default function DeepDiveIndexPage() {
+  redirect("/deep-dive/drivers");
 }

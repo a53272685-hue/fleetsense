@@ -41,6 +41,10 @@ export type {
 } from "./ComplianceStatusCard";
 export { PriorityActionsPanel } from "./PriorityActionsPanel";
 export type { PriorityAction } from "./PriorityActionsPanel";
+export { Podium3Card } from "./Podium3Card";
+export type { PodiumEntry } from "./Podium3Card";
+export { QuickAccessCard } from "./QuickAccessCard";
+export type { QuickAccessCardProps } from "./QuickAccessCard";
 export type { StatusTone } from "./StatusPill";
 export type { NumberBadgeTone } from "./NumberBadge";
 export type { BadgeProps } from "./Badge";

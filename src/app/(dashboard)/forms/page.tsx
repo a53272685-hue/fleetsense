@@ -1,7 +1,6 @@
-export default function FormsPage() {
-  return (
-    <div>
-      <h1 className="text-xl font-semibold text-text-primary">Forms</h1>
-    </div>
-  );
+import { redirect } from "next/navigation";
+
+/** `/forms` → default to the submissions sub-page. */
+export default function FormsIndexPage() {
+  redirect("/forms/submissions");
 }
