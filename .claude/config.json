@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-config",
+  "mcpServers": {
+    "figma-desktop": {
+      "type": "sse",
+      "url": "http://127.0.0.1:3845/sse"
+    }
+  },
+  "project": {
+    "name": "FleetSense",
+    "framework": "next@14 (App Router)",
+    "styling": "Tailwind v4 (@theme in globals.css)",
+    "rules": [
+      "All design implementations must originate from Figma via MCP get_design_context.",
+      "No external icon libraries. Use SVGs exported from Figma, stored in src/components/icons/.",
+      "No hex values or default Tailwind palette — only @theme tokens.",
+      "No arbitrary values like p-[17px] — use @theme spacing/radius tokens.",
+      "Table cell dimensions must match Figma exactly."
+    ]
+  }
+}

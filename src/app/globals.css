@@ -1,27 +1,606 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/**
+ * FleetSense Design Tokens — Tailwind v4 @theme
+ * Source: Figma FS_DesignSystem
+ */
+
+@theme {
+  /* ===== FONTS ===== */
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ===== TYPOGRAPHY (line-height overrides to match Figma tokens) ===== */
+  --text-xs: 12px;
+  --text-xs--line-height: 18px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-xl: 20px;
+  --text-xl--line-height: 30px;
+  --text-display-sm: 30px;
+  --text-display-sm--line-height: 38px;
+
+  /* ===== SPACING ===== */
+  --spacing-none: 0px;
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 6px;
+  --spacing-md: 8px;
+  --spacing-lg: 12px;
+  --spacing-xl: 16px;
+  --spacing-2xl: 20px;
+  --spacing-3xl: 24px;
+  --spacing-4xl: 32px;
+  --spacing-5xl: 40px;
+  --spacing-6xl: 48px;
+  --spacing-7xl: 64px;
+  --spacing-8xl: 80px;
+  --spacing-9xl: 96px;
+  --spacing-10xl: 128px;
+  --spacing-11xl: 160px;
+
+  /* ===== RADIUS ===== */
+  --radius-none: 0px;
+  --radius-xxs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-4xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===== WIDTH ===== */
+  --width-xxs: 320px;
+  --width-xs: 384px;
+  --width-sm: 480px;
+  --width-md: 560px;
+  --width-lg: 640px;
+  --width-xl: 768px;
+  --width-2xl: 1024px;
+  --width-3xl: 1280px;
+  --width-4xl: 1440px;
+  --width-5xl: 1600px;
+  --width-6xl: 1920px;
+
+  /* ===== COLORS — TEXT ===== */
+  --color-text-primary: var(--text-primary);
+  --color-text-primary-on-brand: var(--text-primary-on-brand);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-secondary-hover: var(--text-secondary-hover);
+  --color-text-secondary-on-brand: var(--text-secondary-on-brand);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-tertiary-hover: var(--text-tertiary-hover);
+  --color-text-tertiary-on-brand: var(--text-tertiary-on-brand);
+  --color-text-quaternary: var(--text-quaternary);
+  --color-text-quaternary-on-brand: var(--text-quaternary-on-brand);
+  --color-text-white: var(--text-white);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-placeholder: var(--text-placeholder);
+  --color-text-placeholder-subtle: var(--text-placeholder-subtle);
+  --color-text-brand-primary: var(--text-brand-primary);
+  --color-text-brand-secondary: var(--text-brand-secondary);
+  --color-text-brand-secondary-hover: var(--text-brand-secondary-hover);
+  --color-text-brand-tertiary: var(--text-brand-tertiary);
+  --color-text-brand-tertiary-alt: var(--text-brand-tertiary-alt);
+  --color-text-error-primary: var(--text-error-primary);
+  --color-text-error-primary-hover: var(--text-error-primary-hover);
+  --color-text-warning-primary: var(--text-warning-primary);
+  --color-text-success-primary: var(--text-success-primary);
+
+  /* ===== COLORS — BORDER ===== */
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-secondary-alt: var(--border-secondary-alt);
+  --color-border-tertiary: var(--border-tertiary);
+  --color-border-disabled: var(--border-disabled);
+  --color-border-disabled-subtle: var(--border-disabled-subtle);
+  --color-border-brand: var(--border-brand);
+  --color-border-brand-alt: var(--border-brand-alt);
+  --color-border-error: var(--border-error);
+  --color-border-error-subtle: var(--border-error-subtle);
+
+  /* ===== COLORS — FG ===== */
+  --color-fg-primary: var(--fg-primary);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-secondary-hover: var(--fg-secondary-hover);
+  --color-fg-tertiary: var(--fg-tertiary);
+  --color-fg-tertiary-hover: var(--fg-tertiary-hover);
+  --color-fg-quaternary: var(--fg-quaternary);
+  --color-fg-quaternary-hover: var(--fg-quaternary-hover);
+  --color-fg-white: var(--fg-white);
+  --color-fg-disabled: var(--fg-disabled);
+  --color-fg-disabled-subtle: var(--fg-disabled-subtle);
+  --color-fg-brand-primary: var(--fg-brand-primary);
+  --color-fg-brand-primary-alt: var(--fg-brand-primary-alt);
+  --color-fg-brand-secondary: var(--fg-brand-secondary);
+  --color-fg-brand-secondary-alt: var(--fg-brand-secondary-alt);
+  --color-fg-brand-secondary-hover: var(--fg-brand-secondary-hover);
+  --color-fg-error-primary: var(--fg-error-primary);
+  --color-fg-error-secondary: var(--fg-error-secondary);
+  --color-fg-warning-primary: var(--fg-warning-primary);
+  --color-fg-warning-secondary: var(--fg-warning-secondary);
+  --color-fg-success-primary: var(--fg-success-primary);
+  --color-fg-success-secondary: var(--fg-success-secondary);
+
+  /* ===== COLORS — BG ===== */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-primary-alt: var(--bg-primary-alt);
+  --color-bg-primary-hover: var(--bg-primary-hover);
+  --color-bg-primary-solid: var(--bg-primary-solid);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-secondary-alt: var(--bg-secondary-alt);
+  --color-bg-secondary-hover: var(--bg-secondary-hover);
+  --color-bg-secondary-subtle: var(--bg-secondary-subtle);
+  --color-bg-secondary-solid: var(--bg-secondary-solid);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-quaternary: var(--bg-quaternary);
+  --color-bg-active: var(--bg-active);
+  --color-bg-disabled: var(--bg-disabled);
+  --color-bg-disabled-subtle: var(--bg-disabled-subtle);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-brand-primary: var(--bg-brand-primary);
+  --color-bg-brand-primary-alt: var(--bg-brand-primary-alt);
+  --color-bg-brand-secondary: var(--bg-brand-secondary);
+  --color-bg-brand-solid: var(--bg-brand-solid);
+  --color-bg-brand-solid-hover: var(--bg-brand-solid-hover);
+  --color-bg-brand-section: var(--bg-brand-section);
+  --color-bg-brand-section-subtle: var(--bg-brand-section-subtle);
+  --color-bg-error-primary: var(--bg-error-primary);
+  --color-bg-error-secondary: var(--bg-error-secondary);
+  --color-bg-error-solid: var(--bg-error-solid);
+  --color-bg-error-solid-hover: var(--bg-error-solid-hover);
+  --color-bg-warning-primary: var(--bg-warning-primary);
+  --color-bg-warning-secondary: var(--bg-warning-secondary);
+  --color-bg-warning-solid: var(--bg-warning-solid);
+  --color-bg-success-primary: var(--bg-success-primary);
+  --color-bg-success-secondary: var(--bg-success-secondary);
+  --color-bg-success-solid: var(--bg-success-solid);
+
+  /* ===== COLORS — UTILITY GRAY ===== */
+  --color-gray-50: var(--utility-gray-50);
+  --color-gray-100: var(--utility-gray-100);
+  --color-gray-200: var(--utility-gray-200);
+  --color-gray-300: var(--utility-gray-300);
+  --color-gray-400: var(--utility-gray-400);
+  --color-gray-500: var(--utility-gray-500);
+  --color-gray-600: var(--utility-gray-600);
+  --color-gray-700: var(--utility-gray-700);
+  --color-gray-800: var(--utility-gray-800);
+  --color-gray-900: var(--utility-gray-900);
+
+  /* ===== COLORS — UTILITY BRAND ===== */
+  --color-brand-50: var(--utility-brand-50);
+  --color-brand-100: var(--utility-brand-100);
+  --color-brand-200: var(--utility-brand-200);
+  --color-brand-300: var(--utility-brand-300);
+  --color-brand-400: var(--utility-brand-400);
+  --color-brand-500: var(--utility-brand-500);
+  --color-brand-600: var(--utility-brand-600);
+  --color-brand-700: var(--utility-brand-700);
+  --color-brand-800: var(--utility-brand-800);
+  --color-brand-900: var(--utility-brand-900);
+
+  /* ===== COLORS — UTILITY SEMANTIC ===== */
+  --color-error-50: var(--utility-error-50);
+  --color-error-100: var(--utility-error-100);
+  --color-error-200: var(--utility-error-200);
+  --color-error-300: var(--utility-error-300);
+  --color-error-400: var(--utility-error-400);
+  --color-error-500: var(--utility-error-500);
+  --color-error-600: var(--utility-error-600);
+  --color-error-700: var(--utility-error-700);
+
+  --color-warning-50: var(--utility-warning-50);
+  --color-warning-100: var(--utility-warning-100);
+  --color-warning-200: var(--utility-warning-200);
+  --color-warning-300: var(--utility-warning-300);
+  --color-warning-400: var(--utility-warning-400);
+  --color-warning-500: var(--utility-warning-500);
+  --color-warning-600: var(--utility-warning-600);
+  --color-warning-700: var(--utility-warning-700);
+
+  --color-success-50: var(--utility-success-50);
+  --color-success-100: var(--utility-success-100);
+  --color-success-200: var(--utility-success-200);
+  --color-success-300: var(--utility-success-300);
+  --color-success-400: var(--utility-success-400);
+  --color-success-500: var(--utility-success-500);
+  --color-success-600: var(--utility-success-600);
+  --color-success-700: var(--utility-success-700);
+
+  /* ===== SHADOWS ===== */
+  --shadow-xs: 0 1px 2px rgba(10, 13, 18, 0.05);
+  --shadow-sm: 0 1px 3px rgba(10, 13, 18, 0.1), 0 1px 2px rgba(10, 13, 18, 0.06);
+  --shadow-md: 0 4px 8px -2px rgba(10, 13, 18, 0.1), 0 2px 4px -2px rgba(10, 13, 18, 0.06);
+  --shadow-lg: 0 12px 16px -4px rgba(10, 13, 18, 0.08), 0 4px 6px -2px rgba(10, 13, 18, 0.03);
+  --shadow-xl: 0 20px 24px -4px rgba(10, 13, 18, 0.08), 0 8px 8px -4px rgba(10, 13, 18, 0.03);
+  --shadow-2xl: 0 24px 48px -12px rgba(10, 13, 18, 0.18);
+  --shadow-3xl: 0 32px 64px -12px rgba(10, 13, 18, 0.14);
+
+  /* ===== MOTION TOKENS =====
+     Fixed easing curves and durations used across all interactions.
+     All animations use transform/opacity only (GPU-accelerated).
+     prefers-reduced-motion is honored globally via the @media rule below. */
+  --ease-out-fast: cubic-bezier(0.16, 1, 0.3, 1);    /* snappy UI feedback */
+  --ease-out-standard: cubic-bezier(0.32, 0.72, 0, 1); /* entry / settle */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);       /* default transitions */
+
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===== RAW TOKEN LAYER (referenced by @theme above) ===== */
+:root {
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --container-padding-mobile: 16px;
+  --container-padding-desktop: 32px;
+  --container-max-width-desktop: 1280px;
+  --paragraph-max-width: 720px;
+
+  /* TEXT */
+  --text-primary: #111322;
+  --text-primary-on-brand: #ffffff;
+  --text-secondary: #404968;
+  --text-secondary-hover: #30374f;
+  --text-secondary-on-brand: #b2ddff;
+  --text-tertiary: #4a5578;
+  --text-tertiary-hover: #404968;
+  --text-tertiary-on-brand: #b2ddff;
+  --text-quaternary: #717680;
+  --text-quaternary-on-brand: #84caff;
+  --text-white: #ffffff;
+  --text-disabled: #5d6b98;
+  --text-placeholder: #5d6b98;
+  --text-placeholder-subtle: #b9c0d4;
+  --text-brand-primary: #194185;
+  --text-brand-secondary: #175cd3;
+  --text-brand-secondary-hover: #1849a9;
+  --text-brand-tertiary: #1570ef;
+  --text-brand-tertiary-alt: #1570ef;
+  --text-error-primary: #d92d20;
+  --text-error-primary-hover: #b42318;
+  --text-warning-primary: #dc6803;
+  --text-success-primary: #079455;
+
+  /* BORDER */
+  --border-primary: #b9c0d4;
+  --border-secondary: #dcdfea;
+  --border-secondary-alt: rgba(0, 0, 0, 0.08);
+  --border-tertiary: #eff1f5;
+  --border-disabled: #b9c0d4;
+  --border-disabled-subtle: #dcdfea;
+  --border-brand: #2e90fa;
+  --border-brand-alt: #1570ef;
+  --border-error: #f04438;
+  --border-error-subtle: #fda29b;
+
+  /* FG */
+  --fg-primary: #111322;
+  --fg-secondary: #404968;
+  --fg-secondary-hover: #30374f;
+  --fg-tertiary: #4a5578;
+  --fg-tertiary-hover: #404968;
+  --fg-quaternary: #7d89b0;
+  --fg-quaternary-hover: #5d6b98;
+  --fg-white: #ffffff;
+  --fg-disabled: #7d89b0;
+  --fg-disabled-subtle: #b9c0d4;
+  --fg-brand-primary: #1570ef;
+  --fg-brand-primary-alt: #1570ef;
+  --fg-brand-secondary: #2e90fa;
+  --fg-brand-secondary-alt: #2e90fa;
+  --fg-brand-secondary-hover: #1570ef;
+  --fg-error-primary: #d92d20;
+  --fg-error-secondary: #f04438;
+  --fg-warning-primary: #dc6803;
+  --fg-warning-secondary: #f79009;
+  --fg-success-primary: #079455;
+  --fg-success-secondary: #17b26a;
+
+  /* BG */
+  --bg-primary: #ffffff;
+  --bg-primary-alt: #ffffff;
+  --bg-primary-hover: #eff1f5;
+  --bg-primary-solid: #0e101b;
+  --bg-secondary: #fafafa;
+  --bg-secondary-alt: #fafafa;
+  --bg-secondary-hover: #eff1f5;
+  --bg-secondary-subtle: #fcfcfc;
+  --bg-secondary-solid: #4a5578;
+  --bg-tertiary: #eff1f5;
+  --bg-quaternary: #dcdfea;
+  --bg-active: #f9f9fb;
+  --bg-disabled: #eff1f5;
+  --bg-disabled-subtle: #f9f9fb;
+  --bg-overlay: #0e101b;
+  --bg-brand-primary: #eff8ff;
+  --bg-brand-primary-alt: #eff8ff;
+  --bg-brand-secondary: #d1e9ff;
+  --bg-brand-solid: #1570ef;
+  --bg-brand-solid-hover: #175cd3;
+  --bg-brand-section: #1849a9;
+  --bg-brand-section-subtle: #175cd3;
+  --bg-error-primary: #fef3f2;
+  --bg-error-secondary: #fee4e2;
+  --bg-error-solid: #d92d20;
+  --bg-error-solid-hover: #b42318;
+  --bg-warning-primary: #fffaeb;
+  --bg-warning-secondary: #fef0c7;
+  --bg-warning-solid: #dc6803;
+  --bg-success-primary: #ecfdf3;
+  --bg-success-secondary: #dcfae6;
+  --bg-success-solid: #079455;
+
+  /* UTILITY GRAY */
+  --utility-gray-50: #f9f9fb;
+  --utility-gray-100: #eff1f5;
+  --utility-gray-200: #dcdfea;
+  --utility-gray-300: #b9c0d4;
+  --utility-gray-400: #7d89b0;
+  --utility-gray-500: #5d6b98;
+  --utility-gray-600: #4a5578;
+  --utility-gray-700: #404968;
+  --utility-gray-800: #30374f;
+  --utility-gray-900: #111322;
+
+  /* UTILITY BRAND */
+  --utility-brand-50: #eff8ff;
+  --utility-brand-100: #d1e9ff;
+  --utility-brand-200: #b2ddff;
+  --utility-brand-300: #84caff;
+  --utility-brand-400: #53b1fd;
+  --utility-brand-500: #2e90fa;
+  --utility-brand-600: #1570ef;
+  --utility-brand-700: #175cd3;
+  --utility-brand-800: #1849a9;
+  --utility-brand-900: #194185;
+
+  /* UTILITY ERROR */
+  --utility-error-50: #fef3f2;
+  --utility-error-100: #fee4e2;
+  --utility-error-200: #fecdca;
+  --utility-error-300: #fda29b;
+  --utility-error-400: #f97066;
+  --utility-error-500: #f04438;
+  --utility-error-600: #d92d20;
+  --utility-error-700: #b42318;
+
+  /* UTILITY WARNING */
+  --utility-warning-50: #fffaeb;
+  --utility-warning-100: #fef0c7;
+  --utility-warning-200: #fedf89;
+  --utility-warning-300: #fec84b;
+  --utility-warning-400: #fdb022;
+  --utility-warning-500: #f79009;
+  --utility-warning-600: #dc6803;
+  --utility-warning-700: #b54708;
+
+  /* UTILITY SUCCESS */
+  --utility-success-50: #ecfdf3;
+  --utility-success-100: #dcfae6;
+  --utility-success-200: #abefc6;
+  --utility-success-300: #75e0a7;
+  --utility-success-400: #47cd89;
+  --utility-success-500: #17b26a;
+  --utility-success-600: #079455;
+  --utility-success-700: #067647;
+
+  --focus-ring: #2e90fa;
+  --focus-ring-error: #f04438;
+}
+
+.dark {
+  --text-primary: #f7f7f7;
+  --text-primary-on-brand: #f7f7f7;
+  --text-secondary: #cecfd2;
+  --text-secondary-hover: #ececed;
+  --text-secondary-on-brand: #cecfd2;
+  --text-tertiary: #94979c;
+  --text-tertiary-hover: #cecfd2;
+  --text-tertiary-on-brand: #94979c;
+  --text-quaternary: #94979c;
+  --text-quaternary-on-brand: #94979c;
+  --text-white: #ffffff;
+  --text-disabled: #85888e;
+  --text-placeholder: #85888e;
+  --text-placeholder-subtle: #373a41;
+  --text-brand-primary: #f7f7f7;
+  --text-brand-secondary: #cecfd2;
+  --text-brand-secondary-hover: #ececed;
+  --text-brand-tertiary: #94979c;
+  --text-brand-tertiary-alt: #f7f7f7;
+  --text-error-primary: #f97066;
+  --text-error-primary-hover: #fda29b;
+  --text-warning-primary: #fdb022;
+  --text-success-primary: #47cd89;
+
+  --border-primary: #373a41;
+  --border-secondary: #22262f;
+  --border-secondary-alt: #22262f;
+  --border-tertiary: #22262f;
+  --border-disabled: #373a41;
+  --border-disabled-subtle: #22262f;
+  --border-brand: #53b1fd;
+  --border-brand-alt: #373a41;
+  --border-error: #f97066;
+  --border-error-subtle: #f04438;
+
+  --fg-primary: #ffffff;
+  --fg-secondary: #cecfd2;
+  --fg-secondary-hover: #ececed;
+  --fg-tertiary: #94979c;
+  --fg-tertiary-hover: #cecfd2;
+  --fg-quaternary: #61656c;
+  --fg-quaternary-hover: #85888e;
+  --fg-white: #ffffff;
+  --fg-disabled: #85888e;
+  --fg-disabled-subtle: #61656c;
+  --fg-brand-primary: #2e90fa;
+  --fg-brand-primary-alt: #cecfd2;
+  --fg-brand-secondary: #2e90fa;
+  --fg-brand-secondary-alt: #61656c;
+  --fg-brand-secondary-hover: #85888e;
+  --fg-error-primary: #f04438;
+  --fg-error-secondary: #f97066;
+  --fg-warning-primary: #f79009;
+  --fg-warning-secondary: #fdb022;
+  --fg-success-primary: #17b26a;
+  --fg-success-secondary: #47cd89;
+
+  --bg-primary: #0c0e12;
+  --bg-primary-alt: #13161b;
+  --bg-primary-hover: #22262f;
+  --bg-primary-solid: #13161b;
+  --bg-secondary: #13161b;
+  --bg-secondary-alt: #0c0e12;
+  --bg-secondary-hover: #22262f;
+  --bg-secondary-subtle: #13161b;
+  --bg-secondary-solid: #61656c;
+  --bg-tertiary: #22262f;
+  --bg-quaternary: #373a41;
+  --bg-active: #22262f;
+  --bg-disabled: #22262f;
+  --bg-disabled-subtle: #13161b;
+  --bg-overlay: #22262f;
+  --bg-brand-primary: #2e90fa;
+  --bg-brand-primary-alt: #13161b;
+  --bg-brand-secondary: #1570ef;
+  --bg-brand-solid: #1570ef;
+  --bg-brand-solid-hover: #2e90fa;
+  --bg-brand-section: #13161b;
+  --bg-brand-section-subtle: #0c0e12;
+  --bg-error-primary: #55160c;
+  --bg-error-secondary: #d92d20;
+  --bg-error-solid: #d92d20;
+  --bg-error-solid-hover: #f04438;
+  --bg-warning-primary: #4e1d09;
+  --bg-warning-secondary: #dc6803;
+  --bg-warning-solid: #dc6803;
+  --bg-success-primary: #053321;
+  --bg-success-secondary: #079455;
+  --bg-success-solid: #079455;
+
+  --utility-gray-50: #13161b;
+  --utility-gray-100: #22262f;
+  --utility-gray-200: #373a41;
+  --utility-gray-300: #373a41;
+  --utility-gray-400: #61656c;
+  --utility-gray-500: #85888e;
+  --utility-gray-600: #94979c;
+  --utility-gray-700: #cecfd2;
+  --utility-gray-800: #ececed;
+  --utility-gray-900: #f0f0f1;
+
+  --utility-brand-50: #102a56;
+  --utility-brand-100: #194185;
+  --utility-brand-200: #1849a9;
+  --utility-brand-300: #175cd3;
+  --utility-brand-400: #1570ef;
+  --utility-brand-500: #2e90fa;
+  --utility-brand-600: #53b1fd;
+  --utility-brand-700: #84caff;
+  --utility-brand-800: #b2ddff;
+  --utility-brand-900: #d1e9ff;
+
+  --utility-error-50: #55160c;
+  --utility-error-100: #7a271a;
+  --utility-error-200: #912018;
+  --utility-error-300: #b42318;
+  --utility-error-400: #d92d20;
+  --utility-error-500: #f04438;
+  --utility-error-600: #f97066;
+  --utility-error-700: #fda29b;
+
+  --utility-warning-50: #4e1d09;
+  --utility-warning-100: #7a2e0e;
+  --utility-warning-200: #93370d;
+  --utility-warning-300: #b54708;
+  --utility-warning-400: #dc6803;
+  --utility-warning-500: #f79009;
+  --utility-warning-600: #fdb022;
+  --utility-warning-700: #fec84b;
+
+  --utility-success-50: #053321;
+  --utility-success-100: #074d31;
+  --utility-success-200: #085d3a;
+  --utility-success-300: #067647;
+  --utility-success-400: #079455;
+  --utility-success-500: #17b26a;
+  --utility-success-600: #47cd89;
+  --utility-success-700: #75e0a7;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ============================================================
+   KEYFRAMES — page entry + dropdown pop
+   All use transform/opacity only (GPU-accelerated).
+   ============================================================ */
+@keyframes fs-fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fs-scale-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================================
+   MOTION UTILITIES
+   Use via className; rely on CSS tokens for easing / duration.
+   ============================================================ */
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .fs-animate-enter {
+    animation: fs-fade-slide-up var(--duration-slow) var(--ease-out-standard)
+      both;
+  }
+  .fs-animate-pop {
+    animation: fs-scale-pop var(--duration-base) var(--ease-out-fast) both;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION — respect user preference
+   Collapses all animations/transitions to instant.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
   }
 }
