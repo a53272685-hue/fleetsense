@@ -1,189 +1,169 @@
 # FleetSense 작업 진행 상황
 
-## 1. Primary Request and Intent
+## 개요
 
-사용자는 `/Users/leeminju/fleetsense`에서 "FleetSense" 포트폴리오 프로젝트를 빌드 중인 프로덕트 디자이너. 최상위 목표는 플릿 매니지먼트 대시보드의 **99% 픽셀 정확도 Figma-to-code fidelity**.
+`/Users/leeminju/fleetsense` — Next.js 14 + TypeScript strict + Tailwind v4 (@theme) 기반 플릿 매니지먼트 대시보드 포트폴리오. 목표는 **99% 픽셀 정확도 Figma-to-code fidelity**.
 
-명시적 요청 (시간 순):
-- Next.js 14 + TypeScript strict + Tailwind v4 (@theme) 프로젝트 생성 — 폴더 구조, CLAUDE.md 규칙, .claude/config.json 포함
-- `/Users/leeminju/fleetsense-tokens/globals.css`를 프로젝트로 복사 후 Tailwind v4 @theme 문법으로 변환
-- Figma DesignSystem 파일(`VeKcCTBokX7wng9f8JMIBd`)에서 모든 아이콘을 SVG로 추출, currentColor로 변환, width/height 제거, React 컴포넌트 자동 생성
-- Figma 노드 464:10440, 464:10449와 일치하는 TableHeader/TableCell 컴포넌트를 1px 정확도로 빌드
-- 전체 utilization/overview 페이지(Figma 노드 273:6077)를 섹션별로 preview 검증하며 구현
-- 최종 명시 요청 (요약 이전):
-  - 컬럼 차트의 파란 대시 레퍼런스 라인을 막대 **뒤로** 보내기 (z-order 수정)
-  - Table 헤더 개별 셀의 좌/우 border 제거 (Figma 재비교)
-  - Daily Utilization Status 카드 높이를 우측 3개 Mini Metric 카드 총 높이와 **정확히** 일치시키기
-  - "일단 너가 확인한 에러만 수정해줄래"
-  - 같은 구현 패턴을 다른 utilization 페이지(activity, vehicle-deep-dive, group-comparison)에도 적용
+**Figma 파일**
+- Product mock: `iYJr2l7vrwzAa5VcRjbucS` (FS_Product)
+- Design system: `VeKcCTBokX7wng9f8JMIBd` (FS_DesignSystem)
 
-## 2. Key Technical Concepts
+---
 
-- Next.js 14 App Router + TypeScript strict
-- Tailwind v4 `@theme` 디자인 토큰 (컬러, spacing, radius, typography)
-- Figma MCP (get_design_context, get_screenshot, get_metadata, use_figma, get_variable_defs)
-- Figma plugin API SVG export: `node.exportAsync({ format: 'SVG_STRING' })`
-- Recharts v3 (BarChart, PieChart, ResponsiveContainer, Cell, ReferenceLine, CartesianGrid)
-- Recharts v3 버그들:
-  - Pie에 `startAngle=90/endAngle=-270` 시 `isAnimationActive={false}` 없으면 슬라이스 렌더 실패
-  - Bar에 `radius` prop 주면 바가 3px 높이로 붕괴
-- TanStack React Table로 DataTable 래핑
-- SVG 렌더링 순서 (DOM 뒤쪽일수록 위에 그려짐)
-- currentColor 패턴 (아이콘)
-- SVG fill 속성에 CSS 커스텀 프로퍼티 사용 (`fill="var(--utility-error-500)"`)
+## ✅ 완료된 작업
 
-## 3. Files and Code Sections
+### 프로젝트 기반
+- [x] Next.js 14 + TypeScript strict + Tailwind v4 @theme 셋업
+- [x] 프로젝트 폴더 구조 (`src/app/(dashboard)/`, `src/components/`, `src/lib/`)
+- [x] `.claude/config.json`, `.claude/launch.json`
+- [x] `CLAUDE.md` 규칙 문서화 (Figma 기반, 토큰 전용, 외부 라이브러리 금지)
 
-- `src/app/globals.css`
-  - `@theme` 블록 + `:root`/`.dark` raw 토큰 레이어
-  - `--text-quaternary: #717680` (from #5d6b98), `--bg-secondary: #fafafa` (from #f9f9fb)
-  - 타이포그래피 line-height 오버라이드 추가: `--text-xs: 12/18`, `--text-sm: 14/20`, `--text-xl: 20/30`, `--text-display-sm: 30/38`
-  - **마지막 편집(잘못된 임시 수정)**: SVG `<g>`에 `display: flex; order: -1` 적용 시도 — SVG는 flexbox를 지원하지 않으므로 작동 안함. 되돌려야 함.
+### 디자인 토큰 (`globals.css`)
+- [x] 컬러 토큰 (text/bg/border/fg/utility) 전체 @theme 레이어화
+- [x] Typography (display/text-xs~xl, line-height 오버라이드)
+- [x] Spacing (xxs/xs/sm/md/lg/xl/2xl/3xl/4xl/5xl/6xl)
+- [x] Radius (xs/sm/md/lg/xl/2xl + rounded-full)
+- [x] Shadows (xs ~ 3xl)
+- [x] **Motion tokens**: `--ease-out-fast`, `--ease-out-standard`, `--ease-in-out`, `--duration-instant/fast/base/slow/slower`
+- [x] Keyframes: `fs-fade-slide-up`, `fs-scale-pop`
+- [x] Utility classes: `.fs-animate-enter`, `.fs-animate-pop`
+- [x] Global `@media (prefers-reduced-motion: reduce)` 블록
 
-- `src/components/tables/TableHeader.tsx`
-  - Figma 노드 464:10440 스펙 (h-44, bg-secondary, border top/bottom/left, right 0)
-  - **유저 요청: border-l 제거 필요** — Figma에서 헤더 셀 사이에 좌우 border 없음
+### 아이콘 (54개)
+- [x] Figma DesignSystem에서 SVG 전수 추출 → `src/components/icons/*.svg`
+- [x] `currentColor`로 변환, `width/height` 제거
+- [x] `scripts/build-icons.mjs` — kebab→Pascal + "Icon" suffix 자동 생성 (`index.tsx`)
+- [x] `scripts/strip-kpi-bg.mjs` — kpi-sm/md/neutral 아이콘의 내장 `<rect>` 배경 제거
 
-- `src/components/tables/TableCell.tsx`
-  - Figma 노드 464:10449 (h-72, bg-primary, border 없음, px-24 py-16)
-  - 1px preview_eval 검증 완료
+### 컴포넌트 (src/components/)
 
-- `src/components/tables/FleetVehiclesTable.tsx`
-  - 10개 컬럼 테이블: Vehicle (Avatar + name), Utilization (ProgressBar + %), Status, Distance, Trips, Days used, Driving Hours, Idle Hours, Fuel(L), MPG badge, chevron
+**UI 원시** (`src/components/ui/`):
+- [x] `Badge`, `FilterChip`, `KpiIconBadge`, `MetricsCard`, `AlertBanner`, `PageHeader`, `CardPanel`, `ChartLegend`, `MetricCallout`, `TabBar`, `MiniMetric`, `Avatar`, `ProgressBar`, `StatusPill`, `NumberBadge`, `TableSectionHeader`, `Pagination`
+- [x] **`DotsMenu`** — Figma "Chart dropdown" 스펙 기반 드롭다운 (open/close, 외부 클릭/ESC, scale-pop 애니메이션)
 
-- `src/components/charts/UtilizationColumnChart.tsx`
-  - 11개 바 카테고리 (inactive/under/optimal/over)
-  - 50% ReferenceLine, strokeDasharray="6 4", var(--fg-brand-primary)
-  - Bar radius prop 제거됨 (3px 붕괴 버그)
-  - **유저 요청: reference line 막대 뒤로**
+**차트** (`src/components/charts/`):
+- [x] `UtilizationColumnChart` (Asset Density by Score)
+- [x] `FleetCompositionDonut` (Fleet Composition Status)
+- [x] `DailyUtilizationStackedBar` (Daily Utilization Status)
+- [x] `chartTooltipStyle.ts` — 공통 툴팁 스타일 (Figma 다크 테마)
 
-- `src/components/charts/FleetCompositionDonut.tsx`
-  - startAngle={90} endAngle={-270} 시계 방향 12시부터
-  - isAnimationActive={false} 필수
+**테이블** (`src/components/tables/`):
+- [x] `TableHeader`, `TableCell`, `TableRow` (group-hover 패턴), `DataTable`, `FleetVehiclesTable`
 
-- `src/components/charts/DailyUtilizationStackedBar.tsx`
-  - 7일 × 4카테고리 스택 바, maxBarSize={56}
+**레이아웃** (`src/components/layout/`):
+- [x] `MainNav` — Top bar (브랜드 + 5 nav items + 검색 + Leave), `usePathname` 기반 active 감지
+- [x] `SubNav` — 탭 bar (Overview/Activity/Vehicle Deep Dive/Group Compare/Insights), brand underline 전환
 
-- `src/app/(dashboard)/utilization/overview/page.tsx`
-  - 6개 섹션 조립: PageHeader, AlertBanner, 3 MetricsCards, ChartSection 1, ChartSection 2, Table Section
-  - 10대 차량 mock fleetRows
+### utilization/overview 페이지 (273:6077) — 완전 구현
 
-- `scripts/build-icons.mjs` + `scripts/strip-kpi-bg.mjs`
-  - build-icons: `src/components/icons/*.svg` 스캔 → React 컴포넌트 생성 (kebab→Pascal + "Icon" 접미사, {...props} 스프레드)
-  - strip-kpi-bg: 27개 kpi-sm/md/neutral 아이콘의 선행 `<rect>` 배경 제거
+- [x] **PageHeader + FilterChip group** (Last 7 days / Jan 1-7 / Filters)
+- [x] **AlertBanner** (52 vehicles below 50%...)
+- [x] **KPI row (3 카드)** — Fleet Utilization / Active Assets / Avg Daily Runtime
+- [x] **Asset Usage Analysis**
+  - Asset Density by Score (column chart, 11 bars, radius 4px top, 50% average line **뒤에**)
+  - Fleet Composition Status (donut 520 total)
+- [x] **Asset Utilization Trends**
+  - Daily Utilization Status (stacked bar, segment radius 2px, 세그먼트 간 갭, 커스텀 다크 툴팁)
+  - 3 MiniMetric stack (`justify-between`으로 Daily Util 카드와 높이 정렬)
+- [x] **Fleet Vehicles 테이블** (10 vehicles, 11 columns, 가로 스크롤 제거, 헤더 좌/우 border 없음)
+- [x] **Pagination** (`Rows per page` + 페이지 번호 + Previous/Next)
 
-- `CLAUDE.md`
-  - Figma 전용 아이콘, 토큰 전용 컬러/스페이싱, 99% 픽셀 fidelity 규칙
+### utilization/overview 인터랙션 — 완전 구현
 
-## 4. Errors and Fixes
+- [x] **KPI 카드 hover** — `translateY(-1px)` + `shadow-lg`, 150ms ease-out-fast
+- [x] **KPI dots 드롭다운** — 클릭 시 3개 메뉴 (Download CSV / Export PDF / Share Link), scale-pop 200ms
+- [x] **차트 mount 애니메이션** — bars가 baseline에서 자람 (600ms, ease-out), donut은 제외 (Recharts v3 버그 회피)
+- [x] **차트 hover 툴팁** — Figma 다크 스펙 (black 80% + white text + radius-xs + shadow-xs + custom content for Daily Util)
+- [x] **차트 cursor 하이라이트** — Daily Util에 brand 파란 세로 밴드
+- [x] **테이블 행 hover bg** — `group-hover:bg-bg-primary-hover` 패턴 (셀 단위로 전환)
+- [x] **테이블 행 클릭 → router.push** `/utilization/vehicle-deep-dive/[id]` + `active:scale-[0.99]`
+- [x] **키보드 접근성** — 행에 `role="button"`, `tabIndex=0`, `Enter/Space` 활성화, `focus-visible:ring`
+- [x] **FilterChip 인터랙션** — `hover:bg-bg-primary-hover` + `active:scale-[0.98]` + focus ring
+- [x] **페이지 진입 애니메이션** — 6 섹션이 fade+slide-up (400ms) with 60ms stagger
 
-- **KPI 아이콘이 솔리드 블루 사각형으로 보임**: KPI sm 아이콘에 `<rect fill="currentColor"/>` 배경이 내장되어 KpiIconBadge의 `bg-brand-50 text-brand-600`과 겹쳐 rect와 stroke가 모두 brand-600이 되어 안 보임. `scripts/strip-kpi-bg.mjs`로 선행 rect 제거.
+### 네비게이션 인터랙션
 
-- **Recharts Pie 슬라이스 안 보임**: startAngle=90, endAngle=-270일 때 slice `<path>` 렌더 실패. `isAnimationActive={false}` 추가로 해결.
+- [x] **MainNav active state** — 현재 섹션이 brand blue (아이콘 + 텍스트)
+- [x] **MainNav hover** — 회색 → 진한 회색 전환
+- [x] **SubNav active state** — brand blue 텍스트 + **2px brand underline** 하단
+- [x] **SubNav hover** — 부드러운 색 전환
+- [x] **Tab 라벨 Figma 스펙 교정** — "Vehicle Deep Dive", "Group Compare", "Insights" 추가
 
-- **Recharts Bar가 3px로 붕괴**: `radius={[2,2,0,0]}`로 인해 코너 radius arc만 렌더. radius prop 완전 제거로 해결.
+### 커밋 & 문서
+- [x] `f9a534b feat: utilization/overview page with interactions` (116 files, +5188 / −773)
 
-- **도넛 회전/순서 불일치**: 기본 Recharts는 3시 방향부터 반시계. `startAngle={90} endAngle={-270}` + 데이터 순서 `[Optimal, Under, Inactive, Over]`로 Figma 시계 방향 매칭.
+---
 
-- **npx tsc 실패**: `./node_modules/.bin/tsc --noEmit`로 해결.
+## 🧭 다음 작업: utilization/activity 페이지 (273:6512)
 
-- **파란 레퍼런스 라인이 바 위에 그려짐 (유저 지적, 미해결)**: DOM 검사 결과 `recharts-reference-line`이 `recharts-bar` 뒤에 있어 위에 그려짐. CSS flexbox `order: -1` 시도는 잘못된 접근 (SVG는 flexbox 미지원).
+### Figma 분석 (캡처 확인 완료)
 
-유저 피드백 정리:
-- 토큰 불일치 시 Figma 값을 source of truth로 선택
-- 셀 높이는 intrinsic 52px보다 고정 72px 선택
-- hover/variants 스킵, 베이스만 먼저 빌드
-- Mini Metric 높이와 차트 카드 높이는 정확히 일치해야 함
-- 테이블 헤더 셀은 좌/우 border 없어야 함
-- "일단 너가 확인한 에러만 수정해줄래"
+**전체 구조** (동일한 shell 사용):
+1. MainNav + SubNav (Activity active) ← **재사용**
+2. PageHeader: "Utilization Activity" + 우측 필터 그룹 ← **재사용**
+3. KPI Row: **4 cards** (overview는 3개였음)
+   - Engine Hours (3.90h, +4.3%)
+   - Total Fleet Miles (110.36, -2.7%)
+   - Total Fleet Trips (51.34, +6.1%)
+   - Total Idle Time (1.1h, +3.9%)
+4. **Asset Activity Trends**: 2개 Area Line Chart side-by-side
+   - Daily Fleet Miles (Jan 1-14)
+   - Daily Fleet Trips (Jan 1-14)
+5. **Activity breakdown**: 
+   - Zone Activity Distribution (좌, ProgressBar 리스트 4개)
+   - Zone Activity Metrics (우, 테이블) — Customer Sites/Distribution Centers/Maintenance Facilities/Job Sites
+6. **Activity Heatmap**: 7×24 그리드 (요일 × 시간), 파란 농도 스케일, 범례 (Density Low ~ High)
 
-## 5. Problem Solving
+### 재사용 가능한 컴포넌트 (overview에서 그대로)
 
-해결됨:
-- Next.js 14 + Tailwind v4 셋업 (PostCSS 설정 포함)
-- text-xs/text-sm/text-xl line-height Tailwind v4 @theme 오버라이드
-- 47→54 아이콘 추출 + 자동 생성 파이프라인
-- Recharts 렌더링 버그 (Pie 애니메이션, Bar radius)
-- 도넛 회전 및 순서 매칭
+| 컴포넌트 | 사용처 |
+|---------|--------|
+| `MainNav` / `SubNav` | 상단 nav (layout 자동 적용) |
+| `PageHeader` + `FilterChip` | 제목 + 날짜 필터 |
+| `MetricsCard` + `KpiIconBadge` + `Badge` | 4개 KPI 카드 |
+| `CardPanel` | 모든 섹션 컨테이너 |
+| `DotsMenu` | 각 카드 상단 `⋮` |
+| `ProgressBar` | Zone Activity Distribution |
+| `TableHeader` / `TableCell` / `TableRow` / `DataTable` | Zone Activity Metrics |
+| Motion 토큰 + `fs-animate-enter` | 페이지 entry stagger |
 
-진행 중:
-- Reference line z-order (현재 CSS 접근은 틀림)
-- TableHeader border-l 제거
-- Daily Utilization Status 카드와 Mini Metric 3개 카드 높이 정렬
+### 신규로 만들 요소
 
-## 6. All User Messages (non-tool)
+| 요소 | 구현 전략 |
+|------|-----------|
+| **AreaLineChart** (Daily Fleet Miles/Trips) | Recharts `AreaChart` + `Area` (linearGradient fill) |
+| **ZoneActivityList** | `CardPanel` 내부에 label + ProgressBar + % 한 줄씩 반복 (기존 ProgressBar 조합) |
+| **ZoneMetricsTable** | 기존 `DataTable` 구조 재사용, 컬럼 정의만 신규 (Zone / Visits / Duration / Avg Stay) |
+| **ActivityHeatmap** | CSS grid 7행 × 24열, 각 셀은 `bg-utility-brand-{50~700}` 토큰 농도, 범례는 별도 컴포넌트 |
+| 데이터 색상 강조 (빨간 "2.4h" 등) | 기존 `text-text-error-primary` 토큰 활용 |
 
-1. 초기 프로젝트 셋업 요청 (Next 14, Tailwind v4, 폴더 구조, CLAUDE.md)
-2. "네" (Figma 아이콘 추출 진행 확인)
-3. "진행 잘 하고 있어?"
-4. "네"
-5. Figma 파일 URL 제공
-6. 아이콘 추출 옵션 선택
-7. Figma 노드 464:10440, 464:10449 (TableHeader/TableCell)
-8. 토큰 불일치 답변 (Figma 값, 72px 고정, variants 없음)
-9. Figma 노드 273:6077 전체 페이지 1:1 구현 요청
-10. "현재 상태 리뷰/수정부터 하자"
-11. "진행 하자" (ChartSection 2)
-12. "현재 나온 디자인은 어떻게 확인할수 있어?"
-13. "응" (브라우저 오픈)
-14. 최종 지시:
-    - 컬럼 차트 파란 라인을 막대 뒤로
-    - 테이블 헤더 셀 좌우 border 없음 (Figma 재비교)
-    - Daily Utilization Status 카드 높이 = 3 Mini Metric 카드 총 높이
-    - "일단 너가 확인한 에러만 수정해줄래"
-    - "이렇게 utilization의 다른 페이지들도 작업해줘"
-    - "아직도 안도?"
+### KPI 아이콘 매칭 (기존 54개 중 재사용 가능)
 
-## 7. Pending Tasks
+| KPI | Figma 아이콘 이름 | 기존 파일 |
+|-----|------------------|-----------|
+| Engine Hours | truck | `kpi-sm-truck.svg` ✓ |
+| Total Fleet Miles | route/exchange | `kpi-exchange.svg` ✓ (또는 신규 추출 필요) |
+| Total Fleet Trips | flag/trip | `kpi-sm-trip.svg` ✓ |
+| Total Idle Time | clock | `kpi-sm-time.svg` ✓ |
 
-- UtilizationColumnChart 파란 대시 레퍼런스 라인 z-order 막대 뒤로 — 현재 CSS 수정은 틀림, Recharts 기반 솔루션 필요
-- TableHeader.tsx에서 `border-l` 제거
-- Daily Utilization Status 카드 높이를 Mini Metric 3개 스택과 정확히 매칭 (명시적 높이 또는 grid/align-stretch)
-- 나머지 utilization 페이지 구현:
-  - `/utilization/activity`
-  - `/utilization/vehicle-deep-dive`
-  - `/utilization/group-comparison`
-- utilization/overview 재검증
-- 각 페이지에 동일한 1:1 Figma fidelity 적용
+### 작업 순서 제안
 
-## 8. Current Work
+1. Figma `get_design_context`로 273:6512 전체 스펙 수집 (각 섹션 실측)
+2. **AreaLineChart 컴포넌트 신설** (두 개 미리 제작)
+3. **ActivityHeatmap 컴포넌트 신설** (CSS grid 기반)
+4. **page.tsx 조립** — KPI 4개 → 차트 2개 → 분배+테이블 → 히트맵
+5. Mock 데이터 (Jan 1-14 시계열 + 4 zone + 7×24 heatmap density)
+6. 섹션별 Preview 검증
+7. 페이지 entry stagger 적용
+8. Figma 비교 차이점 리포트 → 수정
 
-마지막 작업: UtilizationColumnChart의 파란 대시 레퍼런스 라인 z-order 수정 시도 중.
+### ⚠️ 미해결 사항 (spawn된 task)
 
-유저 인용: "이 부분에서 파란 선이 막대 그래프 뒤로 가도록 해줘"
+- **Extract 3 dropdown icons from Figma** — `download-01` / `file-06` / `share-04` 아이콘 추출 후 `DotsMenu` 메뉴에 아이콘 추가
+- **Settings / Bell 아이콘** — MainNav 우측에 추가하려면 Figma에서 추출 필요
 
-`preview_eval`로 DOM 순서 조사:
-```
-1. recharts-cartesian-grid
-2. recharts-layer recharts-bar
-3. recharts-layer recharts-reference-line  ← 위에 그려짐
-4-7. axes
-```
+### 이후 페이지들
 
-`globals.css`에 다음 CSS 추가 (틀린 접근):
-```css
-.recharts-wrapper svg > g .recharts-reference-line { order: -1; }
-.recharts-wrapper svg > g { display: flex; }
-```
-
-SVG `<g>`는 CSS flexbox/order를 따르지 않으므로 작동 안함. 유저는 이후 테이블 border-l 제거, 카드 높이 매칭 추가 요청 + "확인한 에러만 수정" + 다른 페이지로 확장 지시.
-
-## 9. Optional Next Step
-
-1. globals.css의 틀린 CSS 되돌리기
-2. Recharts z-order를 올바르게 수정 — `<Customized />` 컴포넌트를 `<Bar>` **앞에** 배치 (Recharts는 JSX 순서 존중), 또는 `<CartesianGrid horizontalPoints>`로 평균 y값에 커스텀 대시 라인 그리기
-3. TableHeader.tsx에서 `border-l` 제거 (Figma utilization/overview 헤더 셀은 수직 구분선 없음)
-4. utilization/overview 페이지에서 Daily Utilization Status CardPanel 높이를 Mini Metric 3개 스택과 매칭 — `items-stretch` + 양쪽 자식이 높이 채우도록
-5. preview로 검증
-6. 이후 다른 utilization 페이지들(activity, vehicle-deep-dive, group-comparison)을 동일한 1:1 Figma 패턴으로 구현
-
-유저 최근 메시지 직접 인용:
-> "그래프에서 이 테이블 탑 바의 각각의 셀의 좌우 보더는 없어 다시 피그마 utilization/overview를 비교해봐바"
-> "여기서 Daily Utilization Status부분 카드 높이와 옆의 세개 차트 카드의 높이가 딱 맞아 떨어져야해"
-> "일단 너가 확인한 에러만 수정해줄래"
-> "이렇게 utilization의 다른 페이지들도 작업해줘"
-
-## 다음 할 일
-
-- utilization/overview 첫 드래프트 수정
-- 인터랙션 추가
+- `utilization/vehicle-deep-dive` (현재 placeholder 라우팅만 있음)
+- `utilization/group-comparison` (placeholder)
+- `utilization/insights` (라우팅 정의됨, placeholder 필요)

@@ -17,6 +17,8 @@ export { TableSectionHeader } from "./TableSectionHeader";
 export { Pagination } from "./Pagination";
 export { DotsMenu } from "./DotsMenu";
 export type { DotsMenuItem, DotsMenuProps } from "./DotsMenu";
+export { ZoneActivityList } from "./ZoneActivityList";
+export type { ZoneActivityRow } from "./ZoneActivityList";
 export type { StatusTone } from "./StatusPill";
 export type { NumberBadgeTone } from "./NumberBadge";
 export type { BadgeProps } from "./Badge";
