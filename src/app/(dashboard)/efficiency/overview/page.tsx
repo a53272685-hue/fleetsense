@@ -38,6 +38,8 @@ import {
 // supports "under" (red) / "optimal" (green) / "over" (orange) / "inactive"
 // (gray) by category key — we map Needs Coaching→under, On Track→optimal,
 // Top Performer→over (reusing the color system; see chart legend labels).
+// 11 buckets per Figma (0-9 ... 91-100).
+// Needs Coaching → under (red), On Track → optimal (green), Top Performer → over (orange).
 const distributionData: ColumnDatum[] = [
   { bucket: "0-9", value: 90, category: "under" },
   { bucket: "10-19", value: 110, category: "under" },
@@ -48,7 +50,8 @@ const distributionData: ColumnDatum[] = [
   { bucket: "60-69", value: 90, category: "optimal" },
   { bucket: "70-79", value: 95, category: "optimal" },
   { bucket: "80-89", value: 115, category: "over" },
-  { bucket: "90-100", value: 120, category: "over" },
+  { bucket: "90-99", value: 120, category: "over" },
+  { bucket: "91-100", value: 128, category: "over" },
 ];
 
 const driverRows: DriverRow[] = [

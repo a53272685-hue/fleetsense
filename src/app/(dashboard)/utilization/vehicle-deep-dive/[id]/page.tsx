@@ -16,10 +16,10 @@ import {
 } from "@/components/ui";
 import {
   UtilizationColumnChart,
-  FleetCompositionDonut,
+  TimeBreakdownDonut,
   DualAreaLineChart,
   type ColumnDatum,
-  type CompositionDatum,
+  type TimeBreakdownDatum,
   type DualSeriesDatum,
 } from "@/components/charts";
 import {
@@ -69,11 +69,11 @@ const daily14: ColumnDatum[] = [
 ];
 
 // Time Breakdown donut (Driving 73% / Idling 14% / Stopped 9% / PTO 4%)
-const timeBreakdown: CompositionDatum[] = [
-  { label: "Optimal", value: 178 },      // "Driving" — reusing existing labels
-  { label: "Under-Utilized", value: 34 },// "Idling"
-  { label: "Over-Utilized", value: 23 }, // "Stopped"
-  { label: "Inactive", value: 10 },      // "PTO"
+const timeBreakdown: TimeBreakdownDatum[] = [
+  { label: "Driving", value: 178 },
+  { label: "Idling", value: 34 },
+  { label: "Stopped", value: 23 },
+  { label: "PTO", value: 10 },
 ];
 
 // Performance Trends dual area (Utilization vs Efficiency MPG)
@@ -217,7 +217,7 @@ export default function VehicleDeepDiveDetailPage({ params }: Props) {
       >
         <CardPanel title="Time Breakdown">
           <div className="flex items-center gap-4xl p-2xl">
-            <FleetCompositionDonut
+            <TimeBreakdownDonut
               data={timeBreakdown}
               total={245}
               size={196}

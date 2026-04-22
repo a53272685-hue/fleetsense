@@ -12,9 +12,9 @@ import {
   type EfficiencyLossItem,
 } from "@/components/ui";
 import {
-  FleetCompositionDonut,
+  TimeBreakdownDonut,
   DualAreaLineChart,
-  type CompositionDatum,
+  type TimeBreakdownDatum,
   type DualSeriesDatum,
 } from "@/components/charts";
 import {
@@ -37,11 +37,11 @@ type Props = { params: { id: string } };
 
 // ---------- Mock data ----------
 
-const timeBreakdown: CompositionDatum[] = [
-  { label: "Optimal", value: 275 }, // "Driving"
-  { label: "Under-Utilized", value: 36 }, // "Idling"
-  { label: "Over-Utilized", value: 32 }, // "Stopped"
-  { label: "Inactive", value: 13 }, // "PTO"
+const timeBreakdown: TimeBreakdownDatum[] = [
+  { label: "Driving", value: 275 },
+  { label: "Idling", value: 36 },
+  { label: "Stopped", value: 32 },
+  { label: "PTO", value: 13 },
 ];
 
 const timeLegend = [
@@ -208,7 +208,7 @@ export default function DriverDeepDivePage({ params }: Props) {
       >
         <CardPanel title="Time Breakdown">
           <div className="flex items-center gap-4xl p-2xl">
-            <FleetCompositionDonut data={timeBreakdown} total={356} size={196} />
+            <TimeBreakdownDonut data={timeBreakdown} total={356} size={196} />
             <ul className="flex flex-col gap-md text-sm">
               {timeLegend.map((l) => (
                 <li

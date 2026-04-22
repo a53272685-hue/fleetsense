@@ -11,11 +11,11 @@ import {
   TableSectionHeader,
 } from "@/components/ui";
 import {
-  UtilizationColumnChart,
+  GroupedColumnChart,
   DualAreaLineChart,
   ActivityHeatmap,
   HeatmapLegend,
-  type ColumnDatum,
+  type GroupedColumnDatum,
   type DualSeriesDatum,
   type HeatmapMatrix,
 } from "@/components/charts";
@@ -34,16 +34,15 @@ import {
 const CENTRAL = "var(--utility-brand-500)";
 const SOUTH = "var(--utility-purple-500)";
 
-// Score Distribution Comparison — 6 buckets, but reused via single-series chart
-// (the Figma mock shows grouped bars; here we show dominant series for each
-// bucket using the existing UtilizationColumnChart).
-const scoreDistribution: ColumnDatum[] = [
-  { bucket: "0-50", value: 60, category: "under" },
-  { bucket: "51-60", value: 42, category: "optimal" },
-  { bucket: "61-70", value: 48, category: "optimal" },
-  { bucket: "71-80", value: 38, category: "optimal" },
-  { bucket: "81-90", value: 54, category: "over" },
-  { bucket: "91-100", value: 68, category: "over" },
+// Score Distribution Comparison — 6 buckets × 2 groups (Central blue vs
+// South purple side-by-side bars), matches Figma mock exactly.
+const scoreDistribution: GroupedColumnDatum[] = [
+  { label: "0-50", central: 55, south: 38 },
+  { label: "51-60", central: 42, south: 30 },
+  { label: "61-70", central: 48, south: 35 },
+  { label: "71-80", central: 38, south: 46 },
+  { label: "81-90", central: 54, south: 60 },
+  { label: "91-100", central: 42, south: 68 },
 ];
 
 const dailyAvgScore: DualSeriesDatum[] = Array.from({ length: 10 }, (_, i) => ({
@@ -164,10 +163,16 @@ export default function EfficiencyGroupComparisonPage() {
         style={{ animationDelay: "180ms" }}
       >
         <CardPanel title="Score Distribution Comparison" className="flex-1">
-          <div className="flex flex-col gap-xs">
-            <div className="p-2xl">
-              <UtilizationColumnChart data={scoreDistribution} average={50} />
-            </div>
+          <div className="p-2xl">
+            <GroupedColumnChart
+              data={scoreDistribution}
+              series={[
+                { key: "central", name: "Central Region", color: CENTRAL },
+                { key: "south", name: "South Region", color: SOUTH },
+              ]}
+              yDomain={[0, 100]}
+              yTicks={[0, 20, 40, 60, 80, 100]}
+            />
           </div>
         </CardPanel>
 
@@ -191,10 +196,8 @@ export default function EfficiencyGroupComparisonPage() {
           headerExtra={
             <ChartLegend
               items={[
-                { label: "Efficiency", color: CENTRAL },
-                { label: "Idle", color: SOUTH },
-                { label: "RPM", color: "var(--utility-brand-300)" },
-                { label: "Cruise", color: "var(--utility-purple-300)" },
+                { label: "Central Region", color: CENTRAL },
+                { label: "South Region", color: SOUTH },
               ]}
             />
           }

@@ -6,6 +6,8 @@ export { DualAreaLineChart } from "./DualAreaLineChart";
 export { GroupedColumnChart } from "./GroupedColumnChart";
 export { HorizontalBarChart } from "./HorizontalBarChart";
 export { ComplianceTrendChart } from "./ComplianceTrendChart";
+export { TimeBreakdownDonut } from "./TimeBreakdownDonut";
+export { DefectsStackedBar } from "./DefectsStackedBar";
 export { ActivityHeatmap, HeatmapLegend } from "./ActivityHeatmap";
 export type { ColumnDatum } from "./UtilizationColumnChart";
 export type { CompositionDatum } from "./FleetCompositionDonut";
@@ -18,6 +20,11 @@ export type {
 } from "./GroupedColumnChart";
 export type { HorizontalBarDatum } from "./HorizontalBarChart";
 export type { ComplianceTrendDatum } from "./ComplianceTrendChart";
+export type {
+  TimeBreakdownCategory,
+  TimeBreakdownDatum,
+} from "./TimeBreakdownDonut";
+export type { DefectsDatum } from "./DefectsStackedBar";
 export type {
   HeatmapMatrix,
   HeatmapDensity,

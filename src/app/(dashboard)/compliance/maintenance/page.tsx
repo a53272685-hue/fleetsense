@@ -15,9 +15,9 @@ import {
 } from "@/components/ui";
 import {
   GroupedColumnChart,
-  DailyUtilizationStackedBar,
+  DefectsStackedBar,
   type GroupedColumnDatum,
-  type StackDatum,
+  type DefectsDatum,
 } from "@/components/charts";
 import {
   TableHeader,
@@ -53,14 +53,13 @@ const dvirData: GroupedColumnDatum[] = [
   { label: "Jan 7", pre: 6, post: 4 },
 ];
 
-// Reported Defects — 5-day stacked bar (Minor gray / Major orange / Critical red / On Track green).
-// Reuses DailyUtilizationStackedBar by mapping: over=Minor, inactive=Major, under=Critical, optimal=OnTrack.
-const defectsData: StackDatum[] = [
-  { day: "Jan 1", optimal: 60, under: 5, inactive: 22, over: 13 },
-  { day: "Jan 2", optimal: 70, under: 3, inactive: 20, over: 7 },
-  { day: "Jan 3", optimal: 62, under: 5, inactive: 22, over: 11 },
-  { day: "Jan 4", optimal: 68, under: 4, inactive: 20, over: 8 },
-  { day: "Jan 5", optimal: 65, under: 4, inactive: 22, over: 9 },
+// Reported Defects — 5-day 3-category stacked bar (Critical / Major / Minor).
+const defectsData: DefectsDatum[] = [
+  { day: "Jan 1", critical: 10, major: 25, minor: 65 },
+  { day: "Jan 2", critical: 6, major: 18, minor: 76 },
+  { day: "Jan 3", critical: 12, major: 22, minor: 66 },
+  { day: "Jan 4", critical: 8, major: 20, minor: 72 },
+  { day: "Jan 5", critical: 9, major: 21, minor: 70 },
 ];
 
 type InspectionRow = {
@@ -210,7 +209,7 @@ export default function ComplianceMaintenancePage() {
           }
         >
           <div className="p-2xl">
-            <DailyUtilizationStackedBar data={defectsData} />
+            <DefectsStackedBar data={defectsData} />
           </div>
         </CardPanel>
       </section>
