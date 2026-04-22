@@ -14,8 +14,8 @@ import {
   type PriorityAction,
 } from "@/components/ui";
 import {
-  GroupedColumnChart,
-  type GroupedColumnDatum,
+  ComplianceTrendChart,
+  type ComplianceTrendDatum,
 } from "@/components/charts";
 import {
   TableHeader,
@@ -37,11 +37,13 @@ import { useState } from "react";
 const TREND_TABS = ["All", "HOS Violations", "Hours of Service"] as const;
 type TrendTab = (typeof TREND_TABS)[number];
 
-// 14-day compliance trend — HOS Violations (blue) + Defects (purple).
-const trendData: GroupedColumnDatum[] = Array.from({ length: 14 }, (_, i) => ({
+// 14-day compliance trend — HOS Violations (blue bars) + Defects (purple
+// bars) + Unassigned x10 (gray line overlay).
+const trendData: ComplianceTrendDatum[] = Array.from({ length: 14 }, (_, i) => ({
   label: `Jan ${i + 1}`,
   hos: 3 + (i % 4) * 2 + (i > 10 ? 2 : 0),
   defects: 2 + (i % 3) * 2 + (i > 9 ? 1 : 0),
+  unassigned: 2 + i * 0.4 + (i % 2) * 0.5,
 }));
 
 type AtRiskRow = {
@@ -207,12 +209,8 @@ export default function ComplianceOverviewPage() {
               />
             </div>
             <div className="p-2xl">
-              <GroupedColumnChart
+              <ComplianceTrendChart
                 data={trendData}
-                series={[
-                  { key: "hos", name: "HOS Violations", color: "var(--utility-brand-500)" },
-                  { key: "defects", name: "Defects", color: "var(--utility-purple-500)" },
-                ]}
                 yDomain={[0, 10]}
                 yTicks={[0, 2, 4, 6, 8, 10]}
               />

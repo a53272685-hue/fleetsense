@@ -92,13 +92,23 @@ export function Pagination({
   );
 }
 
+/**
+ * buildPageList — Figma spec pattern "1 2 3 … 8 9 10".
+ *
+ *  - total ≤ 7 → render every page
+ *  - current in first edge  (≤ 4) → `1 2 3 … total-2 total-1 total`
+ *  - current in last edge  (≥ total − 3) → same edge pattern
+ *  - current in middle → `1 … current-1 current current+1 … total`
+ *
+ * Max slots shown: 7 (three leading + 1 ellipsis + three trailing, OR
+ * 1 + 1 ellipsis + 3 current-cluster + 1 ellipsis + 1).
+ */
 function buildPageList(current: number, total: number): (number | "…")[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-  const pages: (number | "…")[] = [1];
-  if (current > 3) pages.push("…");
-  for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++)
-    pages.push(i);
-  if (current < total - 2) pages.push("…");
-  pages.push(total);
-  return pages;
+  const inFirstEdge = current <= 4;
+  const inLastEdge = current >= total - 3;
+  if (inFirstEdge || inLastEdge) {
+    return [1, 2, 3, "…", total - 2, total - 1, total];
+  }
+  return [1, "…", current - 1, current, current + 1, "…", total];
 }

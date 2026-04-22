@@ -5,6 +5,7 @@ export { AreaLineChart } from "./AreaLineChart";
 export { DualAreaLineChart } from "./DualAreaLineChart";
 export { GroupedColumnChart } from "./GroupedColumnChart";
 export { HorizontalBarChart } from "./HorizontalBarChart";
+export { ComplianceTrendChart } from "./ComplianceTrendChart";
 export { ActivityHeatmap, HeatmapLegend } from "./ActivityHeatmap";
 export type { ColumnDatum } from "./UtilizationColumnChart";
 export type { CompositionDatum } from "./FleetCompositionDonut";
@@ -16,6 +17,7 @@ export type {
   GroupedSeries,
 } from "./GroupedColumnChart";
 export type { HorizontalBarDatum } from "./HorizontalBarChart";
+export type { ComplianceTrendDatum } from "./ComplianceTrendChart";
 export type {
   HeatmapMatrix,
   HeatmapDensity,
