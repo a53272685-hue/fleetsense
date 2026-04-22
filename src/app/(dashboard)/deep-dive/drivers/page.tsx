@@ -173,7 +173,14 @@ export default function DeepDiveDriversPage() {
           </thead>
           <tbody>
             {leaderRows.map((r) => (
-              <TableRow key={r.id}>
+              <TableRow
+                key={r.id}
+                interactive
+                onClick={() => {
+                  /* stub — open driver profile */
+                }}
+                aria-label={`Open driver ${r.name}`}
+              >
                 <TableCell className="!px-lg">
                   <div className="flex items-center gap-sm">
                     {r.rankDelta.direction === "up" ? (
@@ -283,7 +290,14 @@ export default function DeepDiveDriversPage() {
           </thead>
           <tbody>
             {attentionRows.map((r) => (
-              <TableRow key={r.id}>
+              <TableRow
+                key={r.id}
+                interactive
+                onClick={() => {
+                  /* stub — open driver profile */
+                }}
+                aria-label={`Open driver ${r.name}`}
+              >
                 <TableCell>
                   <div className="flex items-center gap-md">
                     <Avatar initials={r.initials} />
