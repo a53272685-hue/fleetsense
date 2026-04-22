@@ -6,6 +6,7 @@ import {
   MetricsCard,
   StatusPill,
   Avatar,
+  FileIconBadge,
   type StatusTone,
 } from "@/components/ui";
 import {
@@ -143,10 +144,17 @@ export default function FormRequestsPage() {
             </thead>
             <tbody>
               {rows.map((r) => (
-                <TableRow key={r.id}>
+                <TableRow
+                  key={r.id}
+                  interactive
+                  onClick={() => {
+                    /* stub — open request detail */
+                  }}
+                  aria-label={`Open request ${r.formName}`}
+                >
                   <TableCell>
                     <div className="flex items-center gap-md">
-                      <KpiSmFileBlankIcon className="h-5 w-5 text-fg-quaternary" />
+                      <FileIconBadge icon={KpiSmFileBlankIcon} />
                       <div className="flex flex-col">
                         <span className="text-sm font-medium text-text-primary">
                           {r.formName}

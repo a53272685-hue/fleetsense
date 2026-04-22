@@ -134,7 +134,8 @@ export default function GroupComparisonPage() {
           iconTone="brand"
           title="Idle Time Gap"
           gap="+0.2h"
-          trend={{ direction: "up", value: "2.8%" }}
+          // Figma: red trend because "up" idle time is undesirable.
+          trend={{ direction: "up", value: "2.8%", tone: "error" }}
           rows={[
             { label: "Central", pct: 65, value: "1.3h", color: CENTRAL },
             { label: "South", pct: 55, value: "1.1h", color: SOUTH },

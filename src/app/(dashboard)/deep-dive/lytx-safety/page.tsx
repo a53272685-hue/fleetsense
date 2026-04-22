@@ -165,7 +165,14 @@ export default function DeepDiveLytxPage() {
             </thead>
             <tbody>
               {rows.map((r) => (
-                <TableRow key={r.id}>
+                <TableRow
+                  key={r.id}
+                  interactive
+                  onClick={() => {
+                    /* stub — open event playback */
+                  }}
+                  aria-label={`Open event ${r.trigger.label} by ${r.driver}`}
+                >
                   <TableCell className="text-text-tertiary">{r.date}</TableCell>
                   <TableCell>
                     <StatusPill tone={r.trigger.tone}>{r.trigger.label}</StatusPill>

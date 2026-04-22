@@ -8,6 +8,7 @@ import {
   AlertBanner,
   Avatar,
   StatusPill,
+  FileIconBadge,
   Pagination,
   type StatusTone,
 } from "@/components/ui";
@@ -180,11 +181,18 @@ export default function FormSubmissionsPage() {
               </thead>
               <tbody>
                 {submissionRows.map((r) => (
-                  <TableRow key={r.id}>
+                  <TableRow
+                    key={r.id}
+                    interactive
+                    onClick={() => {
+                      /* stub — open submission detail */
+                    }}
+                    aria-label={`Open submission ${r.formName} by ${r.submittedBy}`}
+                  >
                     <TableCell className="text-text-tertiary">{r.date}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-md">
-                        <KpiSmFileBlankIcon className="h-5 w-5 text-fg-quaternary" />
+                        <FileIconBadge icon={KpiSmFileBlankIcon} />
                         <div className="flex flex-col">
                           <span className="text-sm font-medium text-text-primary">
                             {r.formName}

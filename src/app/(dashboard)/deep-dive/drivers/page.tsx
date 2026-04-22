@@ -113,7 +113,10 @@ export default function DeepDiveDriversPage() {
           second={{ name: "Priya S.", initials: "PS", points: "2,890 PTS", bonus: "$87" }}
           third={{ name: "James W.", initials: "JW", points: "2,540 PTS", bonus: "$76" }}
         />
-        <div className="flex flex-col gap-lg">
+        {/* justify-between distributes the 2 right-side cards so their top
+            + bottom edges align with the Podium card — no extra empty
+            space below the "Attention Required" card. */}
+        <div className="flex flex-col justify-between">
           <article className="flex flex-col gap-md rounded-xl border border-border-secondary bg-bg-primary p-3xl shadow-xs">
             <p className="text-sm font-medium text-text-tertiary">
               Most Improved Driver
@@ -204,7 +207,7 @@ export default function DeepDiveDriversPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-md">
-                    <ProgressBar value={r.score} />
+                    <ProgressBar value={r.score} size="lg" />
                     <span className="text-sm font-medium text-text-secondary">
                       {r.score}%
                     </span>

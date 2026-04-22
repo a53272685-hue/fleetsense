@@ -30,7 +30,13 @@ export type GapKpiCardProps = {
   title: string;
   /** Big gap value, e.g. "+18%" or "+0.2h" */
   gap: string;
-  trend?: { direction: "up" | "down"; value: string };
+  /** Direction drives the arrow; tone (optional) drives the badge color
+      so metrics where "up" is bad (e.g. Idle Time) can stay red. */
+  trend?: {
+    direction: "up" | "down";
+    value: string;
+    tone?: "success" | "error";
+  };
   rows: [GapCompareRow, GapCompareRow];
 };
 
@@ -68,17 +74,22 @@ export function GapKpiCard({
         <p className="text-display-sm font-bold leading-[38px] text-text-primary">
           {gap}
         </p>
-        {trend ? <Badge trend={trend.direction}>{trend.value}</Badge> : null}
+        {trend ? (
+          <Badge trend={trend.direction} tone={trend.tone}>
+            {trend.value}
+          </Badge>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-md">
         {rows.map((r) => (
           <div
             key={r.label}
-            className="grid grid-cols-[64px_1fr_auto] items-center gap-md"
+            className="grid grid-cols-[56px_1fr_auto] items-center gap-md"
           >
             <span className="text-sm text-text-tertiary">{r.label}</span>
-            <div className="h-2 rounded-full bg-bg-secondary">
+            {/* 10px track to match Figma spec and improve bar visibility. */}
+            <div className="h-[10px] overflow-hidden rounded-full bg-bg-quaternary">
               <div
                 className="h-full rounded-full transition-[width] duration-[var(--duration-slow)] ease-[var(--ease-out-standard)]"
                 style={{

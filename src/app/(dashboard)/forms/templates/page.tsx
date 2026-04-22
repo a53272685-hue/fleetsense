@@ -7,6 +7,7 @@ import {
   FilterChip,
   QuickAccessCard,
   StatusPill,
+  FileIconBadge,
   Pagination,
   type StatusTone,
 } from "@/components/ui";
@@ -181,10 +182,17 @@ export default function FormTemplatesPage() {
             </thead>
             <tbody>
               {templateRows.map((r) => (
-                <TableRow key={r.id}>
+                <TableRow
+                  key={r.id}
+                  interactive
+                  onClick={() => {
+                    /* stub — open template detail */
+                  }}
+                  aria-label={`Open template ${r.formName}`}
+                >
                   <TableCell>
                     <div className="flex items-center gap-md">
-                      <KpiSmFileBlankIcon className="h-5 w-5 text-fg-quaternary" />
+                      <FileIconBadge icon={KpiSmFileBlankIcon} />
                       <div className="flex flex-col">
                         <span className="text-sm font-medium text-text-primary">
                           {r.formName}
