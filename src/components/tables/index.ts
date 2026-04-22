@@ -4,6 +4,8 @@ export { TableRow } from "./TableRow";
 export { DataTable } from "./DataTable";
 export { FleetVehiclesTable } from "./FleetVehiclesTable";
 export type { FleetVehicleRow } from "./FleetVehiclesTable";
+export { DriversPerformanceTable } from "./DriversPerformanceTable";
+export type { DriverRow } from "./DriversPerformanceTable";
 export type { TableHeaderProps } from "./TableHeader";
 export type { TableCellProps } from "./TableCell";
 export type { TableRowProps } from "./TableRow";

@@ -15,7 +15,7 @@ export type NavItem = {
 
 export const ROW_A: NavItem[] = [
   { label: "Utilization", href: "/utilization/overview", icon: NavUtilizationIcon },
-  { label: "Efficiency", href: "/efficiency", icon: NavEfficiencyIcon },
+  { label: "Efficiency", href: "/efficiency/overview", icon: NavEfficiencyIcon },
   { label: "Compliance", href: "/compliance", icon: NavComplianceIcon },
   { label: "Forms", href: "/forms", icon: NavFormsIcon },
   { label: "Deep Dive", href: "/deep-dive", icon: NavDeepDiveIcon },
@@ -28,10 +28,17 @@ export const ROW_B = {
     { label: "Vehicle Deep Dive", href: "/utilization/vehicle-deep-dive" },
     { label: "Group Compare", href: "/utilization/group-comparison" },
   ] satisfies NavItem[],
+  efficiency: [
+    { label: "Overview", href: "/efficiency/overview" },
+    { label: "Activity", href: "/efficiency/activity" },
+    { label: "Driver Deep Dive", href: "/efficiency/driver-deep-dive" },
+    { label: "Group Compare", href: "/efficiency/group-comparison" },
+  ] satisfies NavItem[],
 } as const;
 
 /** Map a URL path to its sub-nav section key. */
 export function getSubNavKey(pathname: string): keyof typeof ROW_B | null {
   if (pathname.startsWith("/utilization")) return "utilization";
+  if (pathname.startsWith("/efficiency")) return "efficiency";
   return null;
 }

@@ -14,13 +14,20 @@ import { KpiIconBadge } from "./KpiIconBadge";
 import { Badge } from "./Badge";
 import { DotsMenu } from "./DotsMenu";
 
+export type MetricsCardMetaItem = {
+  label: string;
+  value: string;
+  /** `error` colors the value red (for loss $ amounts). */
+  tone?: "default" | "error";
+};
+
 export type MetricsCardProps = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   iconTone?: "brand" | "success" | "warning" | "error" | "gray";
   title: string;
   value: string;
   trend?: { direction: "up" | "down"; value: string };
-  meta?: { label: string; value: string }[];
+  meta?: MetricsCardMetaItem[];
 };
 
 export function MetricsCard({ icon, iconTone = "brand", title, value, trend, meta }: MetricsCardProps) {
@@ -56,7 +63,15 @@ export function MetricsCard({ icon, iconTone = "brand", title, value, trend, met
           {meta.map((m) => (
             <div key={m.label} className="flex items-center justify-between text-sm">
               <dt className="font-medium text-text-tertiary">{m.label}</dt>
-              <dd className="font-semibold text-text-secondary">{m.value}</dd>
+              <dd
+                className={
+                  m.tone === "error"
+                    ? "font-semibold text-text-error-primary"
+                    : "font-semibold text-text-secondary"
+                }
+              >
+                {m.value}
+              </dd>
             </div>
           ))}
         </dl>

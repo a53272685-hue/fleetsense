@@ -1,7 +1,6 @@
-export default function EfficiencyPage() {
-  return (
-    <div>
-      <h1 className="text-xl font-semibold text-text-primary">Efficiency</h1>
-    </div>
-  );
+import { redirect } from "next/navigation";
+
+/** `/efficiency` → default to the overview sub-page. */
+export default function EfficiencyIndexPage() {
+  redirect("/efficiency/overview");
 }
