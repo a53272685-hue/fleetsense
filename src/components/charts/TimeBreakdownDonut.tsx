@@ -50,7 +50,7 @@ export function TimeBreakdownDonut({
         <PieChart>
           <Tooltip
             {...chartTooltipStyle}
-            formatter={(v: number, n: string) => [`${v}${totalUnit}`, n]}
+            formatter={((v: number, n: string) => [`${v}${totalUnit}`, n]) as never}
           />
           <Pie
             data={data}

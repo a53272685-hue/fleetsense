@@ -33,11 +33,13 @@ const DISPLAY_NAME: Record<string, string> = {
  *  - one row per stack segment: 8px color swatch + label + right-aligned value
  *  - rows rendered in visual stack order (Over top → Optimal bottom)
  */
-function DailyUtilTooltipContent({
-  active,
-  payload,
-  label,
-}: TooltipProps<number, string>) {
+function DailyUtilTooltipContent(props: TooltipProps<number, string>) {
+  // Recharts v3 no longer types `payload`/`label` on TooltipProps but still
+  // passes them at runtime through the content callback. Read via cast.
+  const { active, payload, label } = props as TooltipProps<number, string> & {
+    payload?: Array<{ name?: string; value?: number; color?: string; dataKey?: string }>;
+    label?: string;
+  };
   if (!active || !payload || payload.length === 0) return null;
   // Recharts gives stack order bottom→top (optimal, under, inactive, over).
   // Reverse so the tooltip matches the visual stack (over on top).

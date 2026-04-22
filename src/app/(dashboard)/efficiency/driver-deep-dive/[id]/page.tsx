@@ -138,7 +138,7 @@ export default function DriverDeepDivePage({ params }: Props) {
         <DriverInfoCard
           initials="JL"
           name="Jardan Lee"
-          role={`Delivery Driver · North Region · #${params.id}`}
+          subtitle={`Delivery Driver · North Region · #${params.id}`}
           tags={["Truck 006", "Van 006"]}
           score={{
             value: "92%",

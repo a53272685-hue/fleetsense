@@ -116,10 +116,10 @@ export function AreaLineChart({
               strokeDasharray: "4 4",
             }}
             {...chartTooltipStyle}
-            formatter={(v: number) => [
+            formatter={((v: number) => [
               `${v.toLocaleString()}${valueSuffix ?? ""}`,
               undefined,
-            ]}
+            ]) as never}
           />
           <Area
             type="monotone"

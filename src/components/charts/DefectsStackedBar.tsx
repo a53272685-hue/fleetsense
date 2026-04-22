@@ -42,7 +42,13 @@ const DISPLAY_NAME: Record<string, string> = {
   minor: "Minor",
 };
 
-function TooltipContent({ active, payload, label }: TooltipProps<number, string>) {
+function TooltipContent(props: TooltipProps<number, string>) {
+  // Recharts v3 drops `payload`/`label` from TooltipProps typing but still
+  // provides them at runtime — read via cast.
+  const { active, payload, label } = props as TooltipProps<number, string> & {
+    payload?: Array<{ name?: string; value?: number; color?: string; dataKey?: string }>;
+    label?: string;
+  };
   if (!active || !payload || payload.length === 0) return null;
   // Tooltip order: Critical → Major → Minor (visual stack top → bottom).
   const rows = [...payload].reverse();

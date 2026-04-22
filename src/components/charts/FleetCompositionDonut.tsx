@@ -36,7 +36,7 @@ export function FleetCompositionDonut({
         <PieChart>
           <Tooltip
             {...chartTooltipStyle}
-            formatter={(v: number, n: string) => [`${v} vehicles`, n]}
+            formatter={((v: number, n: string) => [`${v} vehicles`, n]) as never}
           />
           <Pie
             data={data}

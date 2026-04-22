@@ -86,7 +86,7 @@ export function UtilizationColumnChart({
           <Tooltip
             cursor={{ fill: "var(--utility-gray-100)", opacity: 0.5 }}
             {...chartTooltipStyle}
-            formatter={(v: number) => [`${v}%`, "Assets"]}
+            formatter={((v: number) => [`${v}%`, "Assets"]) as never}
           />
           {/* Figma spec: rounded top corners only (~4px).
               Mount animation: bars grow from baseline (600ms, ease-out). */}

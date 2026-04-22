@@ -14,7 +14,7 @@ export type DriverInfoCardProps = {
   initials: string;
   name: string;
   /** e.g. "Delivery Driver · North Region" */
-  role: string;
+  subtitle: string;
   /** Tag chips to the right of the name (e.g. ["Truck 006", "Van 006"]). */
   tags?: string[];
   score: {
@@ -26,7 +26,7 @@ export type DriverInfoCardProps = {
 export function DriverInfoCard({
   initials,
   name,
-  role,
+  subtitle,
   tags,
   score,
 }: DriverInfoCardProps) {
@@ -39,7 +39,7 @@ export function DriverInfoCard({
           <h2 className="text-xl font-semibold leading-[30px] text-text-primary">
             {name}
           </h2>
-          <p className="text-base leading-6 text-text-tertiary">{role}</p>
+          <p className="text-base leading-6 text-text-tertiary">{subtitle}</p>
         </div>
         {tags && tags.length > 0 ? (
           <div className="flex shrink-0 items-center gap-sm">

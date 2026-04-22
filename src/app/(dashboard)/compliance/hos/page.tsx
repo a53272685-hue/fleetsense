@@ -8,7 +8,6 @@ import {
   TabBar,
   StatusPill,
   Avatar,
-  TableSectionHeader,
   Pagination,
 } from "@/components/ui";
 import {
