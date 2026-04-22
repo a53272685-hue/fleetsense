@@ -36,10 +36,12 @@ export function MainNav() {
   return (
     <header className="border-b border-border-secondary bg-bg-primary">
       <nav className="flex h-14 items-center gap-2xl px-4xl">
-        {/* Brand */}
+        {/* Brand — uses --fg-brand-primary so the wordmark reads as
+            the product's signature color. Keeps focus-visible ring for
+            keyboard users. */}
         <Link
           href="/"
-          className="shrink-0 text-base font-semibold text-text-primary"
+          className="shrink-0 rounded-sm text-base font-semibold text-fg-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg-brand-primary/40 focus-visible:ring-offset-2"
           aria-label="FleetSense home"
         >
           FleetSense
