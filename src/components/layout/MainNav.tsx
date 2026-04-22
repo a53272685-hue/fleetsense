@@ -9,10 +9,11 @@
  *  - Horizontal nav items: icon + label (Utilization / Forms / Efficiency / Compliance / Deep Dive)
  *  - Right tools: search / settings / notification / Leave button
  *
- * Interactions (from Figma):
- *  - Default: text-text-secondary, fg-quaternary icons
- *  - Hover: text-text-primary (darker), transition 150ms ease-out-fast
- *  - Active (current section): text-fg-brand-primary, icon matches brand color
+ * Interactions (from Figma design system node 19511:2262 "Nav item base"):
+ *  - Default: bg-primary, text-text-quaternary, fg-quaternary icon
+ *  - Hover: bg-bg-primary-hover (#eff1f5), same text/icon colors
+ *  - Active (current section): text-text-primary (dark), icon brand blue
+ *  - All states use rounded-sm (6px) + px-lg py-md padding per spec
  *
  * `usePathname` detects which section is active (first path segment match).
  */
@@ -55,13 +56,16 @@ export function MainNav() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "inline-flex items-center gap-sm rounded-sm px-xs py-xs",
-                    "text-sm font-medium",
+                    // Figma spec: px-lg (12), py-md (8), rounded-sm (6)
+                    "inline-flex items-center gap-md rounded-sm px-lg py-md",
+                    "text-base font-semibold leading-6",
                     "transition-colors duration-[var(--duration-fast)] ease-[var(--ease-out-fast)]",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg-brand-primary",
                     active
-                      ? "text-fg-brand-primary"
-                      : "text-text-secondary hover:text-text-primary",
+                      ? // Active state: dark text, icon turns brand blue below
+                        "text-text-primary"
+                      : // Default: quaternary text; hover adds bg tint per Figma
+                        "text-text-quaternary hover:bg-bg-primary-hover",
                   )}
                 >
                   {Icon ? (

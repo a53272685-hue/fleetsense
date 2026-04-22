@@ -27,7 +27,6 @@ export const ROW_B = {
     { label: "Activity", href: "/utilization/activity" },
     { label: "Vehicle Deep Dive", href: "/utilization/vehicle-deep-dive" },
     { label: "Group Compare", href: "/utilization/group-comparison" },
-    { label: "Insights", href: "/utilization/insights" },
   ] satisfies NavItem[],
 } as const;
 
