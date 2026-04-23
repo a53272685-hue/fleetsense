@@ -1,6 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   /**
+   * Root path redirect — `/` → `/utilization/overview`.
+   *
+   * IMPORTANT: this MUST live in `redirects()` (server-level), NOT in
+   * `app/page.tsx` via `redirect()` from next/navigation. The latter
+   * emits a 307 RSC soft redirect with NO `Location` header, which
+   * iframes (Framer embeds in particular) refuse to follow with a
+   * "refused to connect" error.
+   *
+   * `permanent: true` returns HTTP 308 with a real `Location` header,
+   * which iframes follow correctly and which also carries SEO weight
+   * for the canonical home.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/utilization/overview",
+        permanent: true,
+      },
+    ];
+  },
+
+  /**
    * Allow this app to be embedded in an <iframe> from Framer properties
    * (portfolio embeds, Framer canvas previews, etc.).
    *
