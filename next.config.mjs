@@ -41,7 +41,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "frame-ancestors 'self' https://framer.com https://*.framer.app https://*.framer.website https://*.framercanvas.com",
+              "frame-ancestors 'self' https://framer.com https://*.framer.app https://*.framer.website https://*.framercanvas.com https://minju-lee.com https://*.minju-lee.com",
           },
         ],
       },
